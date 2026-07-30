@@ -322,3 +322,83 @@ class Airplane implements Drivable, Flyable {
 }
 ```
 Ở trong ví dụ này, bạn đã tách interface `Vehicle` thành các interface nhỏ hơn dựa vào chức năng liên quan của chúng. Nó tuân thủ ISP và tạo code của bạn linh hoạt và có khả năng duy trì hơn.
+
+## Thế nào là Dependency Inversion Principle?
+Dependency Inversion Principle (DIP) tuyên bố rằng **các mô đun cấp cao không nên phụ thuộc vào các mô đun cấp thấp, nhưng cả 2 nên phụ thuộc vào sự trừu tượng.** Sự trừu tượng không nên phụ thuộc vào chi tiết - chi tiết nên phụ thuộc vào sự trừu tượng.
+
+Nguyên tắc này nhằm việc giảm sự phụ thuộc giữa các mô đun, tăng khả năng mô đun hóa, và khiến code dễ duy trì, kiểm thử, và mở rộng.
+
+Ví dụ, xem xét một bối cảnh khi bạn có một class mà cần sử dụng một thực thể của một class khác. Ở trong cách tiếp cận truyền thống, class đầu tiên sẽ trực tiếp tạo ra một thực thể ở class thứ 2, dẫn tới sự gắn kết chặt chẽ giữa chúng. Nó khiến cho việc thay đổi việc triển khai ở class thứ 2 khó hơn hoặc để kiểm thử class đầu tiên một cách độc lập.
+
+Nhưng nếu bạn áp dụng DIP, class đầu tiên sẽ phụ thuộc vào class trừu tượng của class thứ 2 thay vì trực tiếp triển khai. Nó sẽ khiến nó có khả năng dễ dàng thay đổi sự triển khai và kiểm thử class đầu tiên một cách độc lập.
+
+Đây là một ví dụ mà vi phạm DIP:
+```java
+class WhetherTracker {
+    private String curentConditions;
+    private Emailer emailer;
+
+    public WeatherTracker() {
+        this.emailer = new Emailer();
+    }
+
+    public void setCurrentConditions(String weatherDescription) {
+        this.curentConditions = weatherDescription;
+        if (weatherDescription == "rainy") {
+            emailer.sendEmail("It is rainy");
+        }
+    }
+}
+
+class Emailer {
+    public void sendEmail(String message) {
+        System.out.println("Email sent: " + message);
+    }
+}
+```
+Ở trong ví dụ này, class `WeatherTracker` trực tiếp tạo một thực thể của class `Emailer`, khiến cho nó liên kết chặt chẽ với phần triển khai. Nó khiến cho việc thay đổi triển khai của class `Emailer` trở nên khó hơn hoặc khó có thể kiểm thử class `WeatherTracker` một cách độc lập.
+
+Đây là một ví dụ về cách áp dụng DIP vào code ở trên:
+```java
+interface Notifier {
+    public void alertWeatherConditions(String weatherDescription);
+}
+
+class WeatherTracker {
+    private String currentConditions;
+    private Notifier notifier;
+
+    public WeatherTracker(Notifier notifier) {
+        this.notifier = notifier;
+    }
+
+    public void setCurrentConditions(String weatherDescription) {
+        this.currentConditions = weatherDescription;
+        if (weatherDescription == "rainy") {
+            notifier.alertWeatherConditions("It is rainy");
+        }
+    }
+}
+
+class Emailer implements Notifier {
+    public void alertWeatherConditions(String weatherDescription) {
+        System.out.println("Email sent: " + weatherDescription);
+    }
+}
+
+class SMS implements Notifier {
+    public void alertWeatherConditions(String weatherDescription) {
+        System.out.println("SMS sent: " + weatherDescription);
+    }
+}
+```
+Ở trong ví dụ này, chúng ta tạo ra một interface `Notifier` mà định nghĩa phương thức `alertWeatherConditions`. Class `WeatherTracker` bây giờ phụ thuộc vào interface thay vì class `Emailer`, khiến nó có khả năng dễ dàng thay đổi sự triển khai và kiểm thử class `WeatherTracker` một cách độc lập.
+
+Chúng ta cũng đã tạo ra 2 triển khai của interface `Notifier`, `Emailer`, và `SMS`, để chứng minh làm thế nào bạn có thể thay đổi triển khai của class `WeatherTracker` mà không tác động đến hành vi của chúng.
+## Kết luận
+Trong bài viết này, bạn đã học được về các nguyên lý SOLID mà là một phần rất quan trọng của các nguyên tắc thiết kế chung.
+
+Bằng việc áp dụng nhưng nguyên tắc này ở trong các dự án phát triển phần mềm, bạn có thể tạo ra các đoạn code mà dễ dàng duy trì, mở rộng, và thay đổi, dẫn đến ứng dụng mạnh mẽ, linh hoạt, và có khả năng tái sử dụng. Nó cũng dẫn tới sự việc cộng tác tốt hơn giữa các thành viên nhóm, vì code trở nên mô đun hóa và dễ dàng làm việc với chúng.
+
+Nếu bạn đã đọc tới đây, cảm ơn tới tác giả và cho họ thấy sự quan tâm của bạn.
+
