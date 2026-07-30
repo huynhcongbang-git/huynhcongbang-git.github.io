@@ -223,3 +223,102 @@ Tuy nhiên, class `Bicycle` sẽ báo lỗi `AssertionError` ở trong phương 
 Nói cách khác, nếu class `Bicycle` được xem là một loại của interface `Bike`, thì dựa theo LSP, bất kỳ thực thể nào của `Bike` nên có khả năng thay thế được với thực thể của `Bicycle` mà không làm thay đổi tính đúng đắn của chương trình.
 
 Nhưng trong trường hợp này, nó không đúng bởi vì `Bicycle` báo lỗi `AssertionError` trong khi cố gắng khởi động động cơ. Vì vậy, đoạn code trên vi phạm LSP.
+
+## Thế nào là Interface Segregation Principle?
+Interface Segregation Principle (ISP) tập trung vào thiết kế ra các interface mà được chỉ định cụ thể cho những thứ client cần. Nó tuyên bố rằng không có client nào bị ép phải phụ thuộc vào các phương thức mà nó không sử dụng.
+
+Khái niệm này đề xuất rằng **thay vì việc tạo ra một interface lớn mà bao gồm tất cả các phương thức có thể, nó sẽ tốt hơn nếu tạo ra các interface nhỏ hơn, tạo ra các interface tập trung cho các trường hợp sử dụng cụ thể**. Cách tiếp cận này tạo ra các interface mạch lạc và ít phụ thuộc vào nhau hơn.
+
+Xem xét một interface `Vehicle` sau:
+```java
+interface Vehicle {
+    void startEngine();
+    void stopEngine();
+    void drive();
+    void fly();
+}
+```
+Và bạn có một class tên là `Car` mà triển khai interface `Vehicle`:
+```java
+class Car implements Vehicle {
+    
+    @Override
+    public void startEngine() {
+        // implementation
+    }
+
+    @Override
+    public void stopEngine() {
+        // implementation
+    }
+
+    @Override
+    public void drive() {
+        // implementation
+    }
+
+    @Override
+    public void fly() {
+        throw new UnsupportedOperationException("Thiết bị này không thể bay.");
+    }
+}
+```
+Ở trong ví dụ này, interface `Vehicle` không có quá nhiều phương thức. class `Car` bị ép triển khai tất cả chúng, thậm chí chúng không biết bay. Nó vi phạm ISP bởi vì interface `Vehicle` không được tách thành những interface nhỏ hơn dựa vào các chức năng liên quan.
+
+Hãy tìm hiểu cách tuân thủ ISP ở đây. Giả sử bạn tái cấu trúc interface `Vehicle` thành các interface nhỏ hơn và tập trung vào chức năng hơn:
+```java
+interface Drivable {
+    void startEngine();
+    void stopEngine();
+    void drive();
+}
+
+interface Flyable {
+    void fly();
+}
+```
+Bây giờ, bạn có thể có một class gọi là `Car` mà chỉ triển khai interface `Drivable`:
+```java
+class Car implements Drivable {
+    @Override
+    public void startEngine() {
+        // implementation
+    }
+
+    @Override
+    public void stopEngine() {
+        // implementation
+    }
+
+    @Override
+    public void drive() {
+        // implementation
+    }
+}
+```
+Và cảm ơn cho ISP, bạn có thể có một class khác gọi là `Airplane` mà triển khai cả `Drivable` và `Flyable`:
+```java
+class Airplane implements Drivable, Flyable {
+    
+    @Override
+    public void startEngine() {
+        // implementation
+    }
+
+    @Override
+    public void stopEngine() {
+        // implementation
+    }
+
+    @Override
+    public void drive() {
+        // implementation
+    }
+
+    @Override
+    public void fly() {
+        // implementation
+    }
+}
+```
+Ở trong ví dụ này, bạn đã tách interface `Vehicle` thành các interface nhỏ hơn dựa vào chức năng liên quan của chúng. Nó tuân thủ ISP và tạo code của bạn linh hoạt và có khả năng duy trì hơn.
