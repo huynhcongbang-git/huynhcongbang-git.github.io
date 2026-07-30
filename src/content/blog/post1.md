@@ -23,7 +23,7 @@ Từ viết tắt **SOLID** đại diện cho:
 
 Những nguyên tắc này cung cấp một cách thức cho các lập trình viên tổ chức code và tạo ra các ứng dụng linh hoạt, dễ dàng thay đổi và kiểm thử. Áp dụng các nguyên tắc SOLID có thể giúp code có khả năng mô-đun hóa, duy trì, mở rộng, và giúp cho các lập trình viên có thể cộng tác tốt hơn với nhau.
 
-## **Vậy thế nào là Single Responsibility Principle?**
+## **Thế nào là Single Responsibility Principle?**
 
 Nguyên tắc này tuyên bố rằng **một class nên chỉ có một lý do để thay đổi**, hoặc nói cách khác là **nó nên chỉ có duy nhất một trách nhiệm**. Nó nghĩa là một class nên chỉ có duy nhất một công việc để làm, mà phải làm nó thật tốt.
 
@@ -118,3 +118,48 @@ class InvoicePrinter {
 Ở trong ví dụ đã tái cấu trúc, chúng ta đã chia các trách nhiệm cho class `Invoice` thành 3 class phân biệt: `Invoice`, `InvoiceDao`, và `InvoicePrinter`.
 
 Class `Invoice` chỉ chịu trách nhiệm cho việc tính toán tổng hóa đơn, và trách nhiệm in và lưu vào database được ủy quyền cho các class khác. Nó khiến cho code được mô-đun hóa, dễ dàng hiểu, và ít có khả năng xảy ra lỗi hơn.
+
+## Thế nào là Open-Closed Principle?
+
+Open-Closed Principle (OCP) tuyên bố rằng **các thực thể phần mềm (các class, các module, các hàm,..) nên cho phép mở rộng nhưng không cho chỉnh sửa.** Nghĩa là hành vi của một thực thể phần mềm có thể được mở rộng mà không cần phải chỉnh sửa mã nguồn của nó.
+
+OCP thiết yếu bởi vì nó thúc đẩy khả năng mở rộng và bảo trì của ứng dụng. Bằng cách cho phép các thực thể phần mềm có thể mở rộng mà không phải chỉnh sửa, các lập trình viên có thể thêm các chức năng mà mà không gặp rủi ro phá vỡ đoạn code hiện tại. Và kết quả là code có thể dễ dàng duy trì, mở rộng, và tái sử dụng.
+
+Hãy xem lại ví dụ trước lần nữa.
+
+```java
+class InvoiceDao {
+    private Invoice invoice;
+    
+    public InvoiceDao(Invoice invoice) {
+        this.invoice = invoice;
+    }
+
+    public void saveToDb() {
+        // save to database implementation
+    }
+}
+```
+Class `InvoiceDao` có một trách nhiệm duy nhất là lưu hóa đơn vào database. Nhưng, giả sử có một yêu cầu mới để lưu hóa đơn vào file chẳng hạn. Một cách để triển khai yêu cầu này có thể là chỉnh sửa lại class sẵn có `InvoiceDao` bằng việc thêm phương thức `saveToFile()`. Nhưng nó vi phạm OCP bởi vì nó chỉnh sửa đoạn code có sẵn mà đã được kiểm thử và đang hoạt động trong sản phẩm cuối.
+
+Để tuân thủ OCP, một giải pháp tốt hơn có thể là tạo một interface `InvoiceDao` và triển khai nó dành riêng cho database và file như sau đây:
+```java
+interface InvoiceDao {
+    public void save(Invoice invoice);
+}
+
+class DatabaseInvoiceDao implements InvoiceDao {
+    @Override
+    public void save(Invoice invoice) {
+        // save to database implementation
+    }
+}
+
+class FileInvoiceDao implements InvoiceDao {
+    @Override
+    public void save(Invoice invoice) {
+        // save to file implementation
+    }
+}
+```
+Theo cách này, nếu có một yêu cầu mới để lưu hóa đơn vào một nơi lưu trữ dữ liệu khác, bạn có thể triển khai một `InvoiceDao` mới mà không cần phải chỉnh sửa code sẵn có. Bây giờ, interface `InvoiceDao` đã cho phép mở rộng và không cho phép chỉnh sửa, đã tuân thủ OCP.
