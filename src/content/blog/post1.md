@@ -27,7 +27,7 @@ Những nguyên tắc này cung cấp một cách thức cho các lập trình v
 
 Nguyên tắc này tuyên bố rằng **một class nên chỉ có một lý do để thay đổi**, hoặc nói cách khác là **nó nên chỉ có duy nhất một trách nhiệm**. Nó nghĩa là một class nên chỉ có duy nhất một công việc để làm, mà phải làm nó thật tốt.
 
-Nếu một class có quá nhiều trách nhiệm, nó có thể trở nên khó có thể hiểu, duy trì và chỉnh sửa. Những thay đổi ở trong trách nhiệm này có thể vô tình tác động đến trách nhiệm khác, dẫn đến những hậu quả không mong muốn và lỗi phần mềm. Bằng cách thực hiện SRP, chúng ta có thể tạo ra các đoạn code có khả năng mô=đun hóa, đơn giản để hiểu, và ít có khả năng xuất hiện lỗi hơn.
+Nếu một class có quá nhiều trách nhiệm, nó có thể trở nên khó có thể hiểu, duy trì và chỉnh sửa. Những thay đổi ở trong trách nhiệm này có thể vô tình tác động đến trách nhiệm khác, dẫn đến những hậu quả không mong muốn và lỗi phần mềm. Bằng cách thực hiện SRP, chúng ta có thể tạo ra các đoạn code có khả năng mô đun hóa, đơn giản để hiểu, và ít có khả năng xuất hiện lỗi hơn.
 
 Hãy xem một ví dụ mà vi phạm nguyên tắc SRP:
 
