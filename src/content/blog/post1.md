@@ -3,7 +3,7 @@ title: "Tìm hiểu về nguyên lý SOLID"
 description: "Các nguyên lý cho việc thiết kế ứng dụng tốt hơn."
 pubDate: "Jul 30 2026"
 heroImage: "/post_solid_img.webp"
-tags: ["khái niệm"]
+tags: ["khái niệm", "SOLID Principles"]
 ---
 
 [nguồn: https://www.freecodecamp.org/news/solid-principles-for-better-software-design/, lần cuối truy cập: **30/7/2026**]

@@ -3,6 +3,7 @@ title: "Design Pattern (P.1)"
 description: "**Design patterns** là các giải pháp thông dụng cho các vấn đề thường xuất hiện trong thiết kế phần mềm."
 pubDate: "Jul 30 2026"
 heroImage: "/post_design_pattern_p1_img.webp"
+tags: ["khái niệm", "Design Pattern"]
 ---
 [nguồn: https://refactoring.guru/design-patterns/, lần cuối truy cập: **30/7/2026**]
 
@@ -21,4 +22,16 @@ Hầu hết pattern đều được mô tả rất cụ thể vì vậy người
 - **Structure - Cấu trúc** của các class cho thấy các thành phần của pattern và cách chúng liên hệ với nhau.
 - **Code example - Code ví dụ** dùng một trong những ngôn ngữ lập trình phổ biến để khiến người dùng có thể dễ dàng nắm bắt được ý tưởng đằng sau pattern đó.
 Một số danh sách pattern khác có thể chứa thêm những thông tin hữu ích khác như là phạm vi hoạt động của pattern, các bước triển khai và mối liên hệ với các pattern khác.
+## Lịch sử của pattern
+Ai đã phát minh ra các pattern? Khá hay nhưng không phải là câu hỏi khá thường xuyên. Design patterns không phải là các khái niệm phức tạp, không rõ ràng - mà gần như là ngược lại. Patterns thường là các giải pháp chung cho các vấn đề phổ biến trong thiết kế hướng đối tượng. Khi một giải pháp được lặp lại hết lần này đến lần khác trong nhiều dự án khác nhau, một ai đó thậm chí đã đặt tên cho nó và mô tả chi tiết giải pháp. Đó đơn giản là cách một pattern được khám phá.
+
+Khái niệm của các pattern lần đầu được mô tả bởi Christopher Alexander trong **A Pattern Language: Towns, Building, Construction**. Quyển sách mô tả một "ngôn ngữ" cho việc thiết kế môi trường đô thị. Các đơn vị của ngôn ngữ này là các pattern. Chúng có thể được mô tả là chiều cao cửa sổ nên là bao nhiêu, một ngôi nhà nên có bao nhiêu tầng, diện tích khu vực cây xanh ở một khu dân cư nên lớn thế nào,..
+
+Ý tưởng đã được 4 tác giả tiếp nhận: Erich Gamma, John Vlissides, Ralph Johnson, và Richard Helm. Vào năm 1994, chúng được công bố với tên **Design Patterns: Elements of Reusable Object-Oriented Software**, trong đó họ đã áp dụng các khái niệm về các design pattern vào lập trình. Quyển sách bao gồm 23 pattern giải quyết nhiều vấn đề khác nhau của thiết kế hướng đối tượng và trở thành quyển sách bán chạy nhất trong thời gian rất ngắn. Bởi vì tên quyển sách khá dài nên mọi người thường gọi nó là "the book by the gang of four" mà được rút ngắn hơn cho đơn giản là "the GoF book".
+
+Kể từ đó, hàng chục các pattern hướng đối tượng khác đã được phát hiện. "Cách tiếp cận pattern" trở nên rất phổ biến trong các lĩnh vực lập trình khác, vì vậy hiện nay rất nhiều pattern khác tồn tại bên ngoài thiết kế hướng đối tượng.
+## Tại sao tôi nên học các pattern?
+Sự thật là bạn có thể làm việc như là một lập trình viên trong nhiều năm mà không cần biết về mẫu pattern nào cả. Nhiều người vẫn làm vậy. Thậm chí có cả trường hợp bạn có thể triển khai một vài pattern mà thậm chí còn không biết tới tên của nó. Vì vậy tại sao bạn cần phải dành thời gian để học chúng?
+- Design patterns là một bộ công cụ của **giải pháp đã được thử và kiểm nghiệm** cho các vấn đề thường gặp trong thiết kế ứng dụng. Thậm chí nếu bạn chưa từng gặp phải các vấn đề đó, việc hiểu biết pattern vẫn hữu dụng vì nó dạy bạn cách giải quyết đủ loại vấn đề sử dụng các khái niệm của thiết kế hướng đối tượng.
+- Design patterns định nghĩa một ngôn ngữ thông dụng mà bạn và các thành viên trong nhóm có thể sử dụng để giao tiếp hiệu quả hơn. Bạn có thể nói, "Ôi, chỉ cần sử dụng Singleton cho vấn đề đó," và mọi người sẽ hiểu ý tưởng đằng sau sự gợi ý của bạn. Không cần phải giải thích thế nào là singleton nếu bạn biết pattern và tên của nó.
 
