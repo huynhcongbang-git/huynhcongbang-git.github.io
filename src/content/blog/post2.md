@@ -1,16 +1,24 @@
 ---
-title: "Demo Post 2"
-description: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
-pubDate: "Sep 11 2022"
-heroImage: "/post_img.webp"
+title: "Design Pattern (P.1)"
+description: "**Design patterns** là các giải pháp thông dụng cho các vấn đề thường xuất hiện trong thiết kế phần mềm."
+pubDate: "Jul 30 2026"
+heroImage: "/post_design_pattern_p1_img.webp"
 ---
+[nguồn: https://refactoring.guru/design-patterns/, lần cuối truy cập: **30/7/2026**]
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Vitae ultricies leo integer malesuada nunc vel risus commodo viverra. Adipiscing enim eu turpis egestas pretium. Euismod elementum nisi quis eleifend quam adipiscing. In hac habitasse platea dictumst vestibulum. Sagittis purus sit amet volutpat. Netus et malesuada fames ac turpis egestas. Eget magna fermentum iaculis eu non diam phasellus vestibulum lorem. Varius sit amet mattis vulputate enim. Habitasse platea dictumst quisque sagittis. Integer quis auctor elit sed vulputate mi. Dictumst quisque sagittis purus sit amet.
+**Design Patterns** giống như những bản thiết kế được tạo sẵn mà bạn có thể tùy chỉnh để giải quyết một vấn đề thiết kế lặp lại trong code của bạn.
 
-Morbi tristique senectus et netus. Id semper risus in hendrerit gravida rutrum quisque non tellus. Habitasse platea dictumst quisque sagittis purus sit amet. Tellus molestie nunc non blandit massa. Cursus vitae congue mauris rhoncus. Accumsan tortor posuere ac ut. Fringilla urna porttitor rhoncus dolor. Elit ullamcorper dignissim cras tincidunt lobortis. In cursus turpis massa tincidunt dui ut ornare lectus. Integer feugiat scelerisque varius morbi enim nunc. Bibendum neque egestas congue quisque egestas diam. Cras ornare arcu dui vivamus arcu felis bibendum. Dignissim suspendisse in est ante in nibh mauris. Sed tempus urna et pharetra pharetra massa massa ultricies mi.
+Bạn không thể chỉ tìm kiếm một pattern và sao chép nó vào chương trình của bạn, cách mà bạn có thể làm với các hàm và thư viện sẵn có. Các pattern không phải là một đoạn code cụ thể, nhưng là một khái niệm chung để giải quyết một vấn đề cụ thể. Bạn có thể áp dụng chi tiết mẫu thiết kế và triển khai một giải pháp mà phù hợp với thực tế của chương trình của bạn.
 
-Mollis nunc sed id semper risus in. Convallis a cras semper auctor neque. Diam sit amet nisl suscipit. Lacus viverra vitae congue eu consequat ac felis donec. Egestas integer eget aliquet nibh praesent tristique magna sit amet. Eget magna fermentum iaculis eu non diam. In vitae turpis massa sed elementum. Tristique et egestas quis ipsum suspendisse ultrices. Eget lorem dolor sed viverra ipsum. Vel turpis nunc eget lorem dolor sed viverra. Posuere ac ut consequat semper viverra nam. Laoreet suspendisse interdum consectetur libero id faucibus. Diam phasellus vestibulum lorem sed risus ultricies tristique. Rhoncus dolor purus non enim praesent elementum facilisis. Ultrices tincidunt arcu non sodales neque. Tempus egestas sed sed risus pretium quam vulputate. Viverra suspendisse potenti nullam ac tortor vitae purus faucibus ornare. Fringilla urna porttitor rhoncus dolor purus non. Amet dictum sit amet justo donec enim.
+Các pattern thường bị nhầm lẫn với các giải thuật, vì cả 2 khái niệm đều mô tả các giải pháp chung cho những vấn đề đã được biết trước. Trong khi một giải thuật luôn định nghĩa một tập rõ ràng của hành động mà có thể đạt được một mục tiêu nào đó, một pattern thì sẽ là sự mô tả cấp cao hơn của một giải pháp. Code của một pattern áp dụng cho 2 chương trình khác nhau có thể khác nhau.
 
-Mattis ullamcorper velit sed ullamcorper morbi tincidunt. Tortor posuere ac ut consequat semper viverra. Tellus mauris a diam maecenas sed enim ut sem viverra. Venenatis urna cursus eget nunc scelerisque viverra mauris in. Arcu ac tortor dignissim convallis aenean et tortor at. Curabitur gravida arcu ac tortor dignissim convallis aenean et tortor. Egestas tellus rutrum tellus pellentesque eu. Fusce ut placerat orci nulla pellentesque dignissim enim sit amet. Ut enim blandit volutpat maecenas volutpat blandit aliquam etiam. Id donec ultrices tincidunt arcu. Id cursus metus aliquam eleifend mi.
+Một điểm tương đồng với giải thuật là một bản hướng dẫn nấu ăn: cả 2 đều có các bước rõ ràng để đạt được mục tiêu cụ thể. Mặt khác, một pattern thì giống với bản vẽ hơn: bạn có thể thấy kết quả là gì và nó có tính năng gì, nhưng việc triển khai chính xác nó là gì thì phụ thuộc vào bạn. 
 
-Tempus quam pellentesque nec nam aliquam sem. Risus at ultrices mi tempus imperdiet. Id porta nibh venenatis cras sed felis eget velit. Ipsum a arcu cursus vitae. Facilisis magna etiam tempor orci eu lobortis elementum. Tincidunt dui ut ornare lectus sit. Quisque non tellus orci ac. Blandit libero volutpat sed cras. Nec tincidunt praesent semper feugiat nibh sed pulvinar proin gravida. Egestas integer eget aliquet nibh praesent tristique magna.
+## Pattern bao gồm những gì?
+Hầu hết pattern đều được mô tả rất cụ thể vì vậy người dùng có thể tái tạo chúng trong nhiều bối cảnh khác nhau. Sau đây là các phần mà thường xuất hiện trong một mô tả pattern:
+- **Intent - Ý định** của một pattern tóm tắt mô tả cả vấn đề và cách giải quyết.
+- **Motivation - Động lực thúc đẩy** sẽ giải thích rõ hơn về vấn đề và cách giải quyết mà pattern có thể làm.
+- **Structure - Cấu trúc** của các class cho thấy các thành phần của pattern và cách chúng liên hệ với nhau.
+- **Code example - Code ví dụ** dùng một trong những ngôn ngữ lập trình phổ biến để khiến người dùng có thể dễ dàng nắm bắt được ý tưởng đằng sau pattern đó.
+Một số danh sách pattern khác có thể chứa thêm những thông tin hữu ích khác như là phạm vi hoạt động của pattern, các bước triển khai và mối liên hệ với các pattern khác.
+
