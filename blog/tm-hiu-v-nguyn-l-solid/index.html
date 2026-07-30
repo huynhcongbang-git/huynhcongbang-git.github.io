@@ -13,7 +13,7 @@
 <li><strong>D</strong>ependency Inversion Principle (DIP)</li>
 </ul>
 <p>Những nguyên tắc này cung cấp một cách thức cho các lập trình viên tổ chức code và tạo ra các ứng dụng linh hoạt, dễ dàng thay đổi và kiểm thử. Áp dụng các nguyên tắc SOLID có thể giúp code có khả năng mô-đun hóa, duy trì, mở rộng, và giúp cho các lập trình viên có thể cộng tác tốt hơn với nhau.</p>
-<h2 id="vậy-thế-nào-là-single-responsibility-principle"><strong>Vậy thế nào là Single Responsibility Principle?</strong></h2>
+<h2 id="thế-nào-là-single-responsibility-principle"><strong>Thế nào là Single Responsibility Principle?</strong></h2>
 <p>Nguyên tắc này tuyên bố rằng <strong>một class nên chỉ có một lý do để thay đổi</strong>, hoặc nói cách khác là <strong>nó nên chỉ có duy nhất một trách nhiệm</strong>. Nó nghĩa là một class nên chỉ có duy nhất một công việc để làm, mà phải làm nó thật tốt.</p>
 <p>Nếu một class có quá nhiều trách nhiệm, nó có thể trở nên khó có thể hiểu, duy trì và chỉnh sửa. Những thay đổi ở trong trách nhiệm này có thể vô tình tác động đến trách nhiệm khác, dẫn đến những hậu quả không mong muốn và lỗi phần mềm. Bằng cách thực hiện SRP, chúng ta có thể tạo ra các đoạn code có khả năng mô=đun hóa, đơn giản để hiểu, và ít có khả năng xuất hiện lỗi hơn.</p>
 <p>Hãy xem một ví dụ mà vi phạm nguyên tắc SRP:</p>
@@ -94,7 +94,44 @@
 <span class="line"><span style="color:#E1E4E8">}</span></span>
 <span class="line"></span></code></pre>
 <p>Ở trong ví dụ đã tái cấu trúc, chúng ta đã chia các trách nhiệm cho class <code>Invoice</code> thành 3 class phân biệt: <code>Invoice</code>, <code>InvoiceDao</code>, và <code>InvoicePrinter</code>.</p>
-<p>Class <code>Invoice</code> chỉ chịu trách nhiệm cho việc tính toán tổng hóa đơn, và trách nhiệm in và lưu vào database được ủy quyền cho các class khác. Nó khiến cho code được mô-đun hóa, dễ dàng hiểu, và ít có khả năng xảy ra lỗi hơn.</p>  </article> </main>  </main> </div> <footer class="footer footer-center block mb-5 pt-10"> <div class="pb-2">
+<p>Class <code>Invoice</code> chỉ chịu trách nhiệm cho việc tính toán tổng hóa đơn, và trách nhiệm in và lưu vào database được ủy quyền cho các class khác. Nó khiến cho code được mô-đun hóa, dễ dàng hiểu, và ít có khả năng xảy ra lỗi hơn.</p>
+<h2 id="thế-nào-là-open-closed-principle">Thế nào là Open-Closed Principle?</h2>
+<p>Open-Closed Principle (OCP) tuyên bố rằng <strong>các thực thể phần mềm (các class, các module, các hàm,..) nên cho phép mở rộng nhưng không cho chỉnh sửa.</strong> Nghĩa là hành vi của một thực thể phần mềm có thể được mở rộng mà không cần phải chỉnh sửa mã nguồn của nó.</p>
+<p>OCP thiết yếu bởi vì nó thúc đẩy khả năng mở rộng và bảo trì của ứng dụng. Bằng cách cho phép các thực thể phần mềm có thể mở rộng mà không phải chỉnh sửa, các lập trình viên có thể thêm các chức năng mà mà không gặp rủi ro phá vỡ đoạn code hiện tại. Và kết quả là code có thể dễ dàng duy trì, mở rộng, và tái sử dụng.</p>
+<p>Hãy xem lại ví dụ trước lần nữa.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="java"><code><span class="line"><span style="color:#F97583">class</span><span style="color:#B392F0"> InvoiceDao</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#F97583">    private</span><span style="color:#E1E4E8"> Invoice invoice;</span></span>
+<span class="line"><span style="color:#E1E4E8">    </span></span>
+<span class="line"><span style="color:#F97583">    public</span><span style="color:#B392F0"> InvoiceDao</span><span style="color:#E1E4E8">(Invoice </span><span style="color:#FFAB70">invoice</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#79B8FF">        this</span><span style="color:#E1E4E8">.invoice </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> invoice;</span></span>
+<span class="line"><span style="color:#E1E4E8">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">    public</span><span style="color:#F97583"> void</span><span style="color:#B392F0"> saveToDb</span><span style="color:#E1E4E8">() {</span></span>
+<span class="line"><span style="color:#6A737D">        // save to database implementation</span></span>
+<span class="line"><span style="color:#E1E4E8">    }</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span>
+<span class="line"></span></code></pre>
+<p>Class <code>InvoiceDao</code> có một trách nhiệm duy nhất là lưu hóa đơn vào database. Nhưng, giả sử có một yêu cầu mới để lưu hóa đơn vào file chẳng hạn. Một cách để triển khai yêu cầu này có thể là chỉnh sửa lại class sẵn có <code>InvoiceDao</code> bằng việc thêm phương thức <code>saveToFile()</code>. Nhưng nó vi phạm OCP bởi vì nó chỉnh sửa đoạn code có sẵn mà đã được kiểm thử và đang hoạt động trong sản phẩm cuối.</p>
+<p>Để tuân thủ OCP, một giải pháp tốt hơn có thể là tạo một interface <code>InvoiceDao</code> và triển khai nó dành riêng cho database và file như sau đây:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="java"><code><span class="line"><span style="color:#F97583">interface</span><span style="color:#B392F0"> InvoiceDao</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#F97583">    public</span><span style="color:#F97583"> void</span><span style="color:#B392F0"> save</span><span style="color:#E1E4E8">(Invoice </span><span style="color:#FFAB70">invoice</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">class</span><span style="color:#B392F0"> DatabaseInvoiceDao</span><span style="color:#F97583"> implements</span><span style="color:#B392F0"> InvoiceDao</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#E1E4E8">    @</span><span style="color:#F97583">Override</span></span>
+<span class="line"><span style="color:#F97583">    public</span><span style="color:#F97583"> void</span><span style="color:#B392F0"> save</span><span style="color:#E1E4E8">(Invoice </span><span style="color:#FFAB70">invoice</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#6A737D">        // save to database implementation</span></span>
+<span class="line"><span style="color:#E1E4E8">    }</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">class</span><span style="color:#B392F0"> FileInvoiceDao</span><span style="color:#F97583"> implements</span><span style="color:#B392F0"> InvoiceDao</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#E1E4E8">    @</span><span style="color:#F97583">Override</span></span>
+<span class="line"><span style="color:#F97583">    public</span><span style="color:#F97583"> void</span><span style="color:#B392F0"> save</span><span style="color:#E1E4E8">(Invoice </span><span style="color:#FFAB70">invoice</span><span style="color:#E1E4E8">) {</span></span>
+<span class="line"><span style="color:#6A737D">        // save to file implementation</span></span>
+<span class="line"><span style="color:#E1E4E8">    }</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span>
+<span class="line"></span></code></pre>
+<p>Theo cách này, nếu có một yêu cầu mới để lưu hóa đơn vào một nơi lưu trữ dữ liệu khác, bạn có thể triển khai một <code>InvoiceDao</code> mới mà không cần phải chỉnh sửa code sẵn có. Bây giờ, interface <code>InvoiceDao</code> đã cho phép mở rộng và không cho phép chỉnh sửa, đã tuân thủ OCP.</p>  </article> </main>  </main> </div> <footer class="footer footer-center block mb-5 pt-10"> <div class="pb-2">
 &copy; 2026 Manuel Ernesto
 </div> <div class="inline opacity-75">
 Developed by <a href="https://manuelernestog.github.io" target="_blank" class="font-bold">Manuel Ernesto</a> using
