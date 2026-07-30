@@ -1,4 +1,4 @@
-<!DOCTYPE html><html lang="en" data-theme="lofi"> <head><!-- Global Metadata --><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="generator" content="Astro v4.16.19"><!-- Primary Meta Tags --><title>Design Pattern (P.1)</title><meta name="title" content="Design Pattern (P.1)"><meta name="description" content="**Design patterns** là các giải pháp thông dụng cho các vấn đề thường xuất hiện trong thiết kế phần mềm."><!-- Open Graph / Facebook --><meta property="og:type" content="article"><meta property="og:url" content="https://huynhcongbang.work.gd/blog/design-pattern-p1/"><meta property="og:title" content="Design Pattern (P.1)"><meta property="og:description" content="**Design patterns** là các giải pháp thông dụng cho các vấn đề thường xuất hiện trong thiết kế phần mềm."><meta property="og:image" content="https://huynhcongbang.work.gd/post_design_pattern_p1_img.webp"><!-- Twitter --><meta property="twitter:card" content="summary_large_image"><meta property="twitter:url" content="https://huynhcongbang.work.gd/blog/design-pattern-p1/"><meta property="twitter:title" content="Design Pattern (P.1)"><meta property="twitter:description" content="**Design patterns** là các giải pháp thông dụng cho các vấn đề thường xuất hiện trong thiết kế phần mềm."><meta property="twitter:image" content="https://huynhcongbang.work.gd/post_design_pattern_p1_img.webp"><meta name="astro-view-transitions-enabled" content="true"><meta name="astro-view-transitions-fallback" content="animate"><link rel="stylesheet" href="/_astro/_page_.Bf8a_tYf.css">
+<!DOCTYPE html><html lang="en" data-theme="lofi"> <head><!-- Global Metadata --><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="generator" content="Astro v4.16.19"><!-- Primary Meta Tags --><title>Design Pattern (P.1)</title><meta name="title" content="Design Pattern (P.1)"><meta name="description" content="Design patterns là các giải pháp thông dụng cho các vấn đề thường xuất hiện trong thiết kế phần mềm."><!-- Open Graph / Facebook --><meta property="og:type" content="article"><meta property="og:url" content="https://huynhcongbang.work.gd/blog/design-pattern-p1/"><meta property="og:title" content="Design Pattern (P.1)"><meta property="og:description" content="Design patterns là các giải pháp thông dụng cho các vấn đề thường xuất hiện trong thiết kế phần mềm."><meta property="og:image" content="https://huynhcongbang.work.gd/post_design_pattern_p1_img.webp"><!-- Twitter --><meta property="twitter:card" content="summary_large_image"><meta property="twitter:url" content="https://huynhcongbang.work.gd/blog/design-pattern-p1/"><meta property="twitter:title" content="Design Pattern (P.1)"><meta property="twitter:description" content="Design patterns là các giải pháp thông dụng cho các vấn đề thường xuất hiện trong thiết kế phần mềm."><meta property="twitter:image" content="https://huynhcongbang.work.gd/post_design_pattern_p1_img.webp"><meta name="astro-view-transitions-enabled" content="true"><meta name="astro-view-transitions-fallback" content="animate"><link rel="stylesheet" href="/_astro/_page_.Bf8a_tYf.css">
 <style>.time-line-container>div:last-child .education__time>.education__line{display:none}.astro-route-announcer{position:absolute;left:0;top:0;clip:rect(0 0 0 0);clip-path:inset(50%);overflow:hidden;white-space:nowrap;width:1px;height:1px}
 </style><script type="module" src="/_astro/hoisted.BScVxmeO.js"></script></head> <body> <div class="bg-base-100 drawer lg:drawer-open"> <input id="my-drawer" type="checkbox" class="drawer-toggle"> <div class="drawer-content bg-base-100"> <div class="sticky lg:hidden top-0 z-30 flex h-16 w-full justify-center bg-opacity-90 backdrop-blur transition-all duration-100 bg-base-100 text-base-content shadow-sm"> <div class="navbar"> <div class="navbar-start"> <label for="my-drawer" class="btn btn-square btn-ghost"> <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-5 h-5 stroke-current"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path> </svg> </label> </div> <div class="navbar-center"> <a class="btn btn-ghost normal-case text-xl" href="/">HUỲNH CÔNG BẰNG</a> </div> <div class="navbar-end"></div> </div> </div> <div class="md:flex md:justify-center"> <main class="p-6 pt-10 lg:max-w-[900px] max-w-[100vw]">  <main class="md:flex md:justify-center"> <article class="prose prose-lg max-w-[750px] prose-img:mx-auto"> <img src="/post_design_pattern_p1_img.webp" alt="Design Pattern (P.1)" class="w-full mb-6" width="750" height="422" loading="lazy" decoding="async"> <h1 class="title my-2 text-4xl font-bold">Design Pattern (P.1)</h1> <time>Jul 30, 2026</time> <br>  <a href="/blog/tag/khái niệm" class="badge badge-outline ml-2 no-underline"> khái niệm </a><a href="/blog/tag/Design Pattern" class="badge badge-outline ml-2 no-underline"> Design Pattern </a>  <div class="divider my-2"></div>  <p>[nguồn: <a href="https://refactoring.guru/design-patterns/">https://refactoring.guru/design-patterns/</a>, lần cuối truy cập: <strong>30/7/2026</strong>]</p>
 <p><strong>Design Patterns</strong> giống như những bản thiết kế được tạo sẵn mà bạn có thể tùy chỉnh để giải quyết một vấn đề thiết kế lặp lại trong code của bạn.</p>
@@ -27,15 +27,57 @@ Một số danh sách pattern khác có thể chứa thêm những thông tin h�
 </ul>
 <h2 id="phê-bình-của-các-pattern">Phê bình của các pattern</h2>
 <p>Dường như chỉ có những người lười biếng mới chưa từng phê bình các mẫu thiết kế. Hãy nhìn vào các đoạn tranh luận khá phổ biến chống lại việc sử dụng các pattern.</p>
-<h4 id="giải-pháp-tạm-bợ-cho-một-ngôn-ngữ-lập-trình-yếu">Giải pháp tạm bợ cho một ngôn ngữ lập trình yếu</h4>
+<h3 id="giải-pháp-tạm-bợ-cho-một-ngôn-ngữ-lập-trình-yếu">Giải pháp tạm bợ cho một ngôn ngữ lập trình yếu</h3>
 <p>Thường thì việc cần đến các pattern chỉ xuất hiện khi mọi người chọn một ngôn ngữ lập trình hoặc một công nghệ mà thiếu mức độ trừu tượng cần thiết. Trong trường hợp này, các pattern trở thành một giải pháp tạm bợ cho ngôn ngữ thật sự cần nó một siêu khả năng.</p>
 <p>Ví dụ, pattern <strong>Strategy</strong> có thể được triển khai với một hàm vô danh đơn giản (lambda) trong hầu hết các ngôn ngữ lập trình hiện đại.</p>
-<h4 id="các-giải-pháp-không-hiệu-quả">Các giải pháp không hiệu quả</h4>
+<h3 id="các-giải-pháp-không-hiệu-quả">Các giải pháp không hiệu quả</h3>
 <p>Các Pattern cố gắng hệ thống hóa các cách tiếp cận mà đã được sử dụng rộng rãi. Sự thống nhất này được nhiều người xem như là giáo điều, và áp dụng nó một cách máy móc mà không thay đổi sao cho phù hợp với bối cảnh dự án của họ.</p>
-<h4 id="sử-dụng-không-chính-đáng">Sử dụng không chính đáng</h4>
+<h3 id="sử-dụng-không-chính-đáng">Sử dụng không chính đáng</h3>
 <pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="java"><code><span class="line"><span style="color:#E1E4E8">Nếu tất cả những gì bạn có là một cái búa, thì tất cả mọi thứ đều nhìn giống cái đinh.</span></span>
 <span class="line"></span></code></pre>
-<p>Đây là vấn đề thường gặp mà nhiều người mới bắt đầu làm quen với các pattern. Khi đã được học về các pattern, họ cố gắng áp dụng chúng vào bất cứ mọi nơi, thậm chí là trong các trường hợp mà những cách làm đơn giản cũng làm tốt.</p>  </article> </main>  </main> </div> <footer class="footer footer-center block mb-5 pt-10"> <div class="pb-2">
+<p>Đây là vấn đề thường gặp mà nhiều người mới bắt đầu làm quen với các pattern. Khi đã được học về các pattern, họ cố gắng áp dụng chúng vào bất cứ mọi nơi, thậm chí là trong các trường hợp mà những cách làm đơn giản cũng làm tốt.</p>
+<h2 id="phân-loại-các-pattern">Phân loại các pattern</h2>
+<p>Các design pattern khác nhau bởi sự phức tạp của nó, sự chi tiết và khả năng áp dụng của chúng trên toàn bộ hệ thống đang được thiết kế. Tôi thích sự tương đồng với xây dựng con đường: bạn có thể tạo ra một nút giao an toàn hơn bằng việc gắn một vài đèn giao thông hoặc là xây dựng lại toàn bộ nút giao thông đa tầng với đường hầm dành cho người đi bộ.</p>
+<p>Các pattern căn bản và cấp thấp nhất thường được gọi là <strong>idioms - thành ngữ</strong>. Chúng thường chỉ được áp dụng cho một ngôn ngữ lập trình duy nhất.</p>
+<p>Các pattern phổ biến và cấp cao nhất thường gọi là <strong>architectural patterns</strong>. Các lập trình viên có thể triển khai những pattern ở trong hầu hết mọi ngôn ngữ. Không giống những pattern khác, chúng có thể được dùng để thiết kế kiến trúc của toàn bộ ứng dụng.</p>
+<p>Ngoài ra, tất cả pattern có thể được phân loại theo ý định hoặc mục đích. Quyển sách này bao gồm 3 nhóm chính của pattern:</p>
+<ul>
+<li><strong>Creational patterns</strong> cung cấp các cơ chế tạo ra đối tượng giúp tăng sự linh hoạt và tái sử dụng code sẵn có.</li>
+<li><strong>Structural patterns</strong> giải thích cách lắp ráp các đối tượng và class vào các cấu trúc lớn hơn, trong khi vẫn giữ những cấu trúc đó linh hoạt và hiệu quả.</li>
+<li><strong>Behavioral patterns</strong> quan tâm đến việc giao tiếp hiệu quả và phân công trách nhiệm giữa các đối tượng.</li>
+</ul>
+<h2 id="danh-mục-các-design-pattern">Danh mục các Design Pattern</h2>
+<h3 id="creational-patterns">Creational patterns</h3>
+<ul>
+<li>Factory Method</li>
+<li>Abstract Factory</li>
+<li>Builder</li>
+<li>Prototype</li>
+<li>Singleton</li>
+</ul>
+<h3 id="structural-patterns">Structural patterns</h3>
+<ul>
+<li>Adapter</li>
+<li>Bridge</li>
+<li>Composite</li>
+<li>Decorator</li>
+<li>Facade</li>
+<li>Flyweight</li>
+<li>Proxy</li>
+</ul>
+<h3 id="behavioral-patterns">Behavioral patterns</h3>
+<ul>
+<li>Chain of Responsibility</li>
+<li>Command</li>
+<li>Iterator</li>
+<li>Mediator</li>
+<li>Memento</li>
+<li>Observer</li>
+<li>State</li>
+<li>Strategy</li>
+<li>Template Method</li>
+<li>Visitor</li>
+</ul>  </article> </main>  </main> </div> <footer class="footer footer-center block mb-5 pt-10"> <div class="pb-2">
 &copy; 2026 Huỳnh Công Bằng
 </div> <div class="inline opacity-75">
 Developed by <a href="https://manuelernestog.github.io" target="_blank" class="font-bold">Manuel Ernesto</a> using
