@@ -97,7 +97,7 @@
 <p>Class <code>Invoice</code> chỉ chịu trách nhiệm cho việc tính toán tổng hóa đơn, và trách nhiệm in và lưu vào database được ủy quyền cho các class khác. Nó khiến cho code được mô-đun hóa, dễ dàng hiểu, và ít có khả năng xảy ra lỗi hơn.</p>
 <h2 id="thế-nào-là-open-closed-principle">Thế nào là Open-Closed Principle?</h2>
 <p>Open-Closed Principle (OCP) tuyên bố rằng <strong>các thực thể phần mềm (các class, các module, các hàm,..) nên cho phép mở rộng nhưng không cho chỉnh sửa.</strong> Nghĩa là hành vi của một thực thể phần mềm có thể được mở rộng mà không cần phải chỉnh sửa mã nguồn của nó.</p>
-<p>OCP thiết yếu bởi vì nó thúc đẩy khả năng mở rộng và bảo trì của ứng dụng. Bằng cách cho phép các thực thể phần mềm có thể mở rộng mà không phải chỉnh sửa, các lập trình viên có thể thêm các chức năng mà mà không gặp rủi ro phá vỡ đoạn code hiện tại. Và kết quả là code có thể dễ dàng duy trì, mở rộng, và tái sử dụng.</p>
+<p>OCP thiết yếu bởi vì nó thúc đẩy khả năng mở rộng và bảo trì của ứng dụng. Bằng cách cho phép các thực thể phần mềm có thể mở rộng mà không phải chỉnh sửa, các lập trình viên có thể thêm các chức năng mà không gặp rủi ro phá vỡ đoạn code hiện tại. Và kết quả là code có thể dễ dàng duy trì, mở rộng, và tái sử dụng.</p>
 <p>Hãy xem lại ví dụ trước lần nữa.</p>
 <pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="java"><code><span class="line"><span style="color:#F97583">class</span><span style="color:#B392F0"> InvoiceDao</span><span style="color:#E1E4E8"> {</span></span>
 <span class="line"><span style="color:#F97583">    private</span><span style="color:#E1E4E8"> Invoice invoice;</span></span>
@@ -131,7 +131,55 @@
 <span class="line"><span style="color:#E1E4E8">    }</span></span>
 <span class="line"><span style="color:#E1E4E8">}</span></span>
 <span class="line"></span></code></pre>
-<p>Theo cách này, nếu có một yêu cầu mới để lưu hóa đơn vào một nơi lưu trữ dữ liệu khác, bạn có thể triển khai một <code>InvoiceDao</code> mới mà không cần phải chỉnh sửa code sẵn có. Bây giờ, interface <code>InvoiceDao</code> đã cho phép mở rộng và không cho phép chỉnh sửa, đã tuân thủ OCP.</p>  </article> </main>  </main> </div> <footer class="footer footer-center block mb-5 pt-10"> <div class="pb-2">
+<p>Theo cách này, nếu có một yêu cầu mới để lưu hóa đơn vào một nơi lưu trữ dữ liệu khác, bạn có thể triển khai một <code>InvoiceDao</code> mới mà không cần phải chỉnh sửa code sẵn có. Bây giờ, interface <code>InvoiceDao</code> đã cho phép mở rộng và không cho phép chỉnh sửa, đã tuân thủ OCP.</p>
+<h2 id="thế-nào-là-liskov-substitution-principle">Thế nào là Liskov Substitution Principle?</h2>
+<p>Liskov Substitution Principle (LSP) tuyên bố rằng <strong>bất kỳ thực thể nào của một class dẫn xuất đều có thể thay thế cho một thực thể từ class chính mà không làm ảnh hưởng tới sự đúng đắn của chương trình.</strong></p>
+<p>Nói cách khác, một class dẫn xuất nên cư xử giống class chính ở trong mọi bối cảnh. Nói theo cách đơn giản hơn thì nếu class A là một class con của class B, bạn nên có khả năng thay thế B với A mà không làm phá vỡ hành vi của chương trình.</p>
+<p>Sự quan trọng của LSP phụ thuộc vào khả năng của nó để đảm bảo rằng chương trình vẫn nhất quán và dễ dàng dự đoán khi thay thế các lớp khác nhau cho nhau. Vi phạm LSP có thể dẫn tới các hành vi không ngờ tới, các lỗi, và các vấn đề về khả năng duy trì.</p>
+<p>Hãy xem một ví dụ.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="java"><code><span class="line"><span style="color:#F97583">interface</span><span style="color:#B392F0"> Bike</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#F97583">    void</span><span style="color:#B392F0"> turnOnEngine</span><span style="color:#E1E4E8">();</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">    void</span><span style="color:#B392F0"> accelerate</span><span style="color:#E1E4E8">();</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span>
+<span class="line"></span></code></pre>
+<p>Ở trong ví dụ trên, interface <code>Bike</code> có 2 phương thức, <code>turnOnEngine()</code> và <code>accelerate()</code>. 2 class triển khai interface này là <code>Motorbike</code> và <code>Bicycle</code>.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="java"><code><span class="line"><span style="color:#F97583">class</span><span style="color:#B392F0"> Motorbike</span><span style="color:#F97583"> implements</span><span style="color:#B392F0"> Bike</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#E1E4E8">    </span></span>
+<span class="line"><span style="color:#F97583">    boolean</span><span style="color:#E1E4E8"> isEngineOn;</span></span>
+<span class="line"><span style="color:#F97583">    int</span><span style="color:#E1E4E8"> speed;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">    @</span><span style="color:#F97583">Override</span></span>
+<span class="line"><span style="color:#F97583">    public</span><span style="color:#F97583"> void</span><span style="color:#B392F0"> turnOnEngine</span><span style="color:#E1E4E8">() {</span></span>
+<span class="line"><span style="color:#E1E4E8">        isEngineOn </span><span style="color:#F97583">=</span><span style="color:#79B8FF"> true</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#E1E4E8">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">    @</span><span style="color:#F97583">Override</span></span>
+<span class="line"><span style="color:#F97583">    public</span><span style="color:#F97583"> void</span><span style="color:#B392F0"> accelerate</span><span style="color:#E1E4E8">() {</span></span>
+<span class="line"><span style="color:#E1E4E8">        speed </span><span style="color:#F97583">+=</span><span style="color:#79B8FF"> 5</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#E1E4E8">    }</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span>
+<span class="line"></span></code></pre>
+<p><code>Motorbike</code> triển khai chính xác phương thức <code>turnOnEngine()</code>, là thiết lập biến <code>isEngineOn</code> thành true. Nó cũng triển khai chính xác phương thức <code>accelerate()</code> bằng việc tăng <code>speed</code> lên 5.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="java"><code><span class="line"><span style="color:#F97583">class</span><span style="color:#B392F0"> Bicycle</span><span style="color:#F97583"> implements</span><span style="color:#B392F0"> Bike</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#E1E4E8">    </span></span>
+<span class="line"><span style="color:#F97583">    boolean</span><span style="color:#E1E4E8"> isEngineOn;</span></span>
+<span class="line"><span style="color:#F97583">    int</span><span style="color:#E1E4E8"> speed;</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">    @</span><span style="color:#F97583">Override</span></span>
+<span class="line"><span style="color:#F97583">    public</span><span style="color:#F97583"> void</span><span style="color:#B392F0"> turnOnEngine</span><span style="color:#E1E4E8">() {</span></span>
+<span class="line"><span style="color:#F97583">        throw</span><span style="color:#F97583"> new</span><span style="color:#B392F0"> AssertionError</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">"Không có hệ thống nào cả!"</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"><span style="color:#E1E4E8">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">    @</span><span style="color:#F97583">Override</span></span>
+<span class="line"><span style="color:#F97583">    public</span><span style="color:#F97583"> void</span><span style="color:#B392F0"> accelerate</span><span style="color:#E1E4E8">() {</span></span>
+<span class="line"><span style="color:#E1E4E8">        speed </span><span style="color:#F97583">+=</span><span style="color:#79B8FF"> 5</span><span style="color:#E1E4E8">;</span></span>
+<span class="line"><span style="color:#E1E4E8">    }</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span>
+<span class="line"></span></code></pre>
+<p>Tuy nhiên, class <code>Bicycle</code> sẽ báo lỗi <code>AssertionError</code> ở trong phương thức <code>turnOnEngine()</code> bởi vì nó không có động cơ. Nó nghĩa là một thực thể của <code>Bicycle</code> không thể thay thế cho một thực thể của <code>Bike</code> mà không làm phá vỡ hành vi của chương trình.</p>
+<p>Nói cách khác, nếu class <code>Bicycle</code> được xem là một loại của interface <code>Bike</code>, thì dựa theo LSP, bất kỳ thực thể nào của <code>Bike</code> nên có khả năng thay thế được với thực thể của <code>Bicycle</code> mà không làm thay đổi tính đúng đắn của chương trình.</p>
+<p>Nhưng trong trường hợp này, nó không đúng bởi vì <code>Bicycle</code> báo lỗi <code>AssertionError</code> trong khi cố gắng khởi động động cơ. Vì vậy, đoạn code trên vi phạm LSP.</p>  </article> </main>  </main> </div> <footer class="footer footer-center block mb-5 pt-10"> <div class="pb-2">
 &copy; 2026 Manuel Ernesto
 </div> <div class="inline opacity-75">
 Developed by <a href="https://manuelernestog.github.io" target="_blank" class="font-bold">Manuel Ernesto</a> using
