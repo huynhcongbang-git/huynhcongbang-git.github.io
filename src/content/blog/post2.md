@@ -34,4 +34,16 @@ Kể từ đó, hàng chục các pattern hướng đối tượng khác đã đ
 Sự thật là bạn có thể làm việc như là một lập trình viên trong nhiều năm mà không cần biết về mẫu pattern nào cả. Nhiều người vẫn làm vậy. Thậm chí có cả trường hợp bạn có thể triển khai một vài pattern mà thậm chí còn không biết tới tên của nó. Vì vậy tại sao bạn cần phải dành thời gian để học chúng?
 - Design patterns là một bộ công cụ của **giải pháp đã được thử và kiểm nghiệm** cho các vấn đề thường gặp trong thiết kế ứng dụng. Thậm chí nếu bạn chưa từng gặp phải các vấn đề đó, việc hiểu biết pattern vẫn hữu dụng vì nó dạy bạn cách giải quyết đủ loại vấn đề sử dụng các khái niệm của thiết kế hướng đối tượng.
 - Design patterns định nghĩa một ngôn ngữ thông dụng mà bạn và các thành viên trong nhóm có thể sử dụng để giao tiếp hiệu quả hơn. Bạn có thể nói, "Ôi, chỉ cần sử dụng Singleton cho vấn đề đó," và mọi người sẽ hiểu ý tưởng đằng sau sự gợi ý của bạn. Không cần phải giải thích thế nào là singleton nếu bạn biết pattern và tên của nó.
+## Phê bình của các pattern
+Dường như chỉ có những người lười biếng mới chưa từng phê bình các mẫu thiết kế. Hãy nhìn vào các đoạn tranh luận khá phổ biến chống lại việc sử dụng các pattern.
+#### Giải pháp tạm bợ cho một ngôn ngữ lập trình yếu
+Thường thì việc cần đến các pattern chỉ xuất hiện khi mọi người chọn một ngôn ngữ lập trình hoặc một công nghệ mà thiếu mức độ trừu tượng cần thiết. Trong trường hợp này, các pattern trở thành một giải pháp tạm bợ cho ngôn ngữ thật sự cần nó một siêu khả năng.
 
+Ví dụ, pattern **Strategy** có thể được triển khai với một hàm vô danh đơn giản (lambda) trong hầu hết các ngôn ngữ lập trình hiện đại.
+#### Các giải pháp không hiệu quả
+Các Pattern cố gắng hệ thống hóa các cách tiếp cận mà đã được sử dụng rộng rãi. Sự thống nhất này được nhiều người xem như là giáo điều, và áp dụng nó một cách máy móc mà không thay đổi sao cho phù hợp với bối cảnh dự án của họ.
+#### Sử dụng không chính đáng
+```java
+Nếu tất cả những gì bạn có là một cái búa, thì tất cả mọi thứ đều nhìn giống cái đinh.
+```
+Đây là vấn đề thường gặp mà nhiều người mới bắt đầu làm quen với các pattern. Khi đã được học về các pattern, họ cố gắng áp dụng chúng vào bất cứ mọi nơi, thậm chí là trong các trường hợp mà những cách làm đơn giản cũng làm tốt.
