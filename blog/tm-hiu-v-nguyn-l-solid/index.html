@@ -179,7 +179,97 @@
 <span class="line"></span></code></pre>
 <p>Tuy nhiên, class <code>Bicycle</code> sẽ báo lỗi <code>AssertionError</code> ở trong phương thức <code>turnOnEngine()</code> bởi vì nó không có động cơ. Nó nghĩa là một thực thể của <code>Bicycle</code> không thể thay thế cho một thực thể của <code>Bike</code> mà không làm phá vỡ hành vi của chương trình.</p>
 <p>Nói cách khác, nếu class <code>Bicycle</code> được xem là một loại của interface <code>Bike</code>, thì dựa theo LSP, bất kỳ thực thể nào của <code>Bike</code> nên có khả năng thay thế được với thực thể của <code>Bicycle</code> mà không làm thay đổi tính đúng đắn của chương trình.</p>
-<p>Nhưng trong trường hợp này, nó không đúng bởi vì <code>Bicycle</code> báo lỗi <code>AssertionError</code> trong khi cố gắng khởi động động cơ. Vì vậy, đoạn code trên vi phạm LSP.</p>  </article> </main>  </main> </div> <footer class="footer footer-center block mb-5 pt-10"> <div class="pb-2">
+<p>Nhưng trong trường hợp này, nó không đúng bởi vì <code>Bicycle</code> báo lỗi <code>AssertionError</code> trong khi cố gắng khởi động động cơ. Vì vậy, đoạn code trên vi phạm LSP.</p>
+<h2 id="thế-nào-là-interface-segregation-principle">Thế nào là Interface Segregation Principle?</h2>
+<p>Interface Segregation Principle (ISP) tập trung vào thiết kế ra các interface mà được chỉ định cụ thể cho những thứ client cần. Nó tuyên bố rằng không có client nào bị ép phải phụ thuộc vào các phương thức mà nó không sử dụng.</p>
+<p>Khái niệm này đề xuất rằng <strong>thay vì việc tạo ra một interface lớn mà bao gồm tất cả các phương thức có thể, nó sẽ tốt hơn nếu tạo ra các interface nhỏ hơn, tạo ra các interface tập trung cho các trường hợp sử dụng cụ thể</strong>. Cách tiếp cận này tạo ra các interface mạch lạc và ít phụ thuộc vào nhau hơn.</p>
+<p>Xem xét một interface <code>Vehicle</code> sau:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="java"><code><span class="line"><span style="color:#F97583">interface</span><span style="color:#B392F0"> Vehicle</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#F97583">    void</span><span style="color:#B392F0"> startEngine</span><span style="color:#E1E4E8">();</span></span>
+<span class="line"><span style="color:#F97583">    void</span><span style="color:#B392F0"> stopEngine</span><span style="color:#E1E4E8">();</span></span>
+<span class="line"><span style="color:#F97583">    void</span><span style="color:#B392F0"> drive</span><span style="color:#E1E4E8">();</span></span>
+<span class="line"><span style="color:#F97583">    void</span><span style="color:#B392F0"> fly</span><span style="color:#E1E4E8">();</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span>
+<span class="line"></span></code></pre>
+<p>Và bạn có một class tên là <code>Car</code> mà triển khai interface <code>Vehicle</code>:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="java"><code><span class="line"><span style="color:#F97583">class</span><span style="color:#B392F0"> Car</span><span style="color:#F97583"> implements</span><span style="color:#B392F0"> Vehicle</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#E1E4E8">    </span></span>
+<span class="line"><span style="color:#E1E4E8">    @</span><span style="color:#F97583">Override</span></span>
+<span class="line"><span style="color:#F97583">    public</span><span style="color:#F97583"> void</span><span style="color:#B392F0"> startEngine</span><span style="color:#E1E4E8">() {</span></span>
+<span class="line"><span style="color:#6A737D">        // implementation</span></span>
+<span class="line"><span style="color:#E1E4E8">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">    @</span><span style="color:#F97583">Override</span></span>
+<span class="line"><span style="color:#F97583">    public</span><span style="color:#F97583"> void</span><span style="color:#B392F0"> stopEngine</span><span style="color:#E1E4E8">() {</span></span>
+<span class="line"><span style="color:#6A737D">        // implementation</span></span>
+<span class="line"><span style="color:#E1E4E8">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">    @</span><span style="color:#F97583">Override</span></span>
+<span class="line"><span style="color:#F97583">    public</span><span style="color:#F97583"> void</span><span style="color:#B392F0"> drive</span><span style="color:#E1E4E8">() {</span></span>
+<span class="line"><span style="color:#6A737D">        // implementation</span></span>
+<span class="line"><span style="color:#E1E4E8">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">    @</span><span style="color:#F97583">Override</span></span>
+<span class="line"><span style="color:#F97583">    public</span><span style="color:#F97583"> void</span><span style="color:#B392F0"> fly</span><span style="color:#E1E4E8">() {</span></span>
+<span class="line"><span style="color:#F97583">        throw</span><span style="color:#F97583"> new</span><span style="color:#B392F0"> UnsupportedOperationException</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">"Thiết bị này không thể bay."</span><span style="color:#E1E4E8">);</span></span>
+<span class="line"><span style="color:#E1E4E8">    }</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span>
+<span class="line"></span></code></pre>
+<p>Ở trong ví dụ này, interface <code>Vehicle</code> không có quá nhiều phương thức. class <code>Car</code> bị ép triển khai tất cả chúng, thậm chí chúng không biết bay. Nó vi phạm ISP bởi vì interface <code>Vehicle</code> không được tách thành những interface nhỏ hơn dựa vào các chức năng liên quan.</p>
+<p>Hãy tìm hiểu cách tuân thủ ISP ở đây. Giả sử bạn tái cấu trúc interface <code>Vehicle</code> thành các interface nhỏ hơn và tập trung vào chức năng hơn:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="java"><code><span class="line"><span style="color:#F97583">interface</span><span style="color:#B392F0"> Drivable</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#F97583">    void</span><span style="color:#B392F0"> startEngine</span><span style="color:#E1E4E8">();</span></span>
+<span class="line"><span style="color:#F97583">    void</span><span style="color:#B392F0"> stopEngine</span><span style="color:#E1E4E8">();</span></span>
+<span class="line"><span style="color:#F97583">    void</span><span style="color:#B392F0"> drive</span><span style="color:#E1E4E8">();</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">interface</span><span style="color:#B392F0"> Flyable</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#F97583">    void</span><span style="color:#B392F0"> fly</span><span style="color:#E1E4E8">();</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span>
+<span class="line"></span></code></pre>
+<p>Bây giờ, bạn có thể có một class gọi là <code>Car</code> mà chỉ triển khai interface <code>Drivable</code>:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="java"><code><span class="line"><span style="color:#F97583">class</span><span style="color:#B392F0"> Car</span><span style="color:#F97583"> implements</span><span style="color:#B392F0"> Drivable</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#E1E4E8">    @</span><span style="color:#F97583">Override</span></span>
+<span class="line"><span style="color:#F97583">    public</span><span style="color:#F97583"> void</span><span style="color:#B392F0"> startEngine</span><span style="color:#E1E4E8">() {</span></span>
+<span class="line"><span style="color:#6A737D">        // implementation</span></span>
+<span class="line"><span style="color:#E1E4E8">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">    @</span><span style="color:#F97583">Override</span></span>
+<span class="line"><span style="color:#F97583">    public</span><span style="color:#F97583"> void</span><span style="color:#B392F0"> stopEngine</span><span style="color:#E1E4E8">() {</span></span>
+<span class="line"><span style="color:#6A737D">        // implementation</span></span>
+<span class="line"><span style="color:#E1E4E8">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">    @</span><span style="color:#F97583">Override</span></span>
+<span class="line"><span style="color:#F97583">    public</span><span style="color:#F97583"> void</span><span style="color:#B392F0"> drive</span><span style="color:#E1E4E8">() {</span></span>
+<span class="line"><span style="color:#6A737D">        // implementation</span></span>
+<span class="line"><span style="color:#E1E4E8">    }</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span>
+<span class="line"></span></code></pre>
+<p>Và cảm ơn cho ISP, bạn có thể có một class khác gọi là <code>Airplane</code> mà triển khai cả <code>Drivable</code> và <code>Flyable</code>:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="java"><code><span class="line"><span style="color:#F97583">class</span><span style="color:#B392F0"> Airplane</span><span style="color:#F97583"> implements</span><span style="color:#B392F0"> Drivable</span><span style="color:#E1E4E8">, </span><span style="color:#B392F0">Flyable</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#E1E4E8">    </span></span>
+<span class="line"><span style="color:#E1E4E8">    @</span><span style="color:#F97583">Override</span></span>
+<span class="line"><span style="color:#F97583">    public</span><span style="color:#F97583"> void</span><span style="color:#B392F0"> startEngine</span><span style="color:#E1E4E8">() {</span></span>
+<span class="line"><span style="color:#6A737D">        // implementation</span></span>
+<span class="line"><span style="color:#E1E4E8">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">    @</span><span style="color:#F97583">Override</span></span>
+<span class="line"><span style="color:#F97583">    public</span><span style="color:#F97583"> void</span><span style="color:#B392F0"> stopEngine</span><span style="color:#E1E4E8">() {</span></span>
+<span class="line"><span style="color:#6A737D">        // implementation</span></span>
+<span class="line"><span style="color:#E1E4E8">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">    @</span><span style="color:#F97583">Override</span></span>
+<span class="line"><span style="color:#F97583">    public</span><span style="color:#F97583"> void</span><span style="color:#B392F0"> drive</span><span style="color:#E1E4E8">() {</span></span>
+<span class="line"><span style="color:#6A737D">        // implementation</span></span>
+<span class="line"><span style="color:#E1E4E8">    }</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">    @</span><span style="color:#F97583">Override</span></span>
+<span class="line"><span style="color:#F97583">    public</span><span style="color:#F97583"> void</span><span style="color:#B392F0"> fly</span><span style="color:#E1E4E8">() {</span></span>
+<span class="line"><span style="color:#6A737D">        // implementation</span></span>
+<span class="line"><span style="color:#E1E4E8">    }</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span>
+<span class="line"></span></code></pre>
+<p>Ở trong ví dụ này, bạn đã tách interface <code>Vehicle</code> thành các interface nhỏ hơn dựa vào chức năng liên quan của chúng. Nó tuân thủ ISP và tạo code của bạn linh hoạt và có khả năng duy trì hơn.</p>  </article> </main>  </main> </div> <footer class="footer footer-center block mb-5 pt-10"> <div class="pb-2">
 &copy; 2026 Manuel Ernesto
 </div> <div class="inline opacity-75">
 Developed by <a href="https://manuelernestog.github.io" target="_blank" class="font-bold">Manuel Ernesto</a> using
