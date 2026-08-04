@@ -1,0 +1,303 @@
+---
+title: "Tìm hiểu framework FastAPI"
+description: "FastAPI là một web framework hiện đại, hiệu suất cao dùng để xây dựng các RESTful API bằng ngôn ngữ Python."
+pubDate: "Aug 2 2026"
+heroImage: "/post_fastapi_img.webp"
+badge: "python"
+tags: ["framework"]
+---
+import {Image} from 'astro:assets';
+import myImage from '../../assets/images/post3-1.webp';
+import myImage1 from '../../assets/images/post3-2.webp';
+import myImage2 from '../../assets/images/post3-3.webp';
+import myImage3 from '../../assets/images/post3-4.webp';
+import myImage4 from '../../assets/images/post3-5.webp';
+
+[Nguồn: https://fastapi.tiangolo.com/tutorial/, Lần cuối truy cập: 2/8/2026]
+
+Một FastAPI đơn giản nhất có thể trông giống như:
+```python
+from fastapi import FastAPI
+
+app = FastAPI()
+
+
+@app.get("/")
+async def root():
+    return {"message": "Hello world"}
+```
+Dán đoạn mã đó vào file `main.py` và chạy câu lệnh `fastapi run main.py`
+
+<figure style={{ textAlign: 'center' }}>
+  <Image src={myImage} alt="Ảnh minh họa" />
+  <figcaption style={{ fontSize: '0.9rem', color: '#666', marginTop: '8px' }}>
+
+  </figcaption>
+</figure>
+Ở phần kết quả đầu ra, có một dòng giống như vậy:
+
+`Uvicorn running on http://0.0.0.0:8000 (Press CTR+C to quit)`
+
+Dòng này cho biết địa chỉ URL nơi mà ứng dụng đang chạy trên hệ thống cục bộ của bạn. Mở trình duyệt với địa chỉ **http://0.0.0.0:8000**, bạn sẽ nhìn thấy phản hồi JSON giống như: `{"message":"Hello World"}`.
+
+Bây giờ hãy vào đường dẫn **http://0.0.0.0:8000/docs**. Bạn sẽ thấy tài liệu API tương tác tự động (được cung cấp bởi Swagger UI)
+<figure style={{ textAlign: 'center' }}>
+  <Image src={myImage1} alt="Ảnh minh họa" />
+  <figcaption style={{ fontSize: '0.9rem', color: '#666', marginTop: '8px' }}>
+
+  </figcaption>
+</figure>
+Tiếp theo, vào đường dẫn **http://0.0.0.0:8000/redoc**. Bạn sẽ thấy tài liệu API thay thế được cung cấp bởi ReDoc)
+<figure style={{ textAlign: 'center' }}>
+  <Image src={myImage2} alt="Ảnh minh họa" />
+  <figcaption style={{ fontSize: '0.9rem', color: '#666', marginTop: '8px' }}>
+
+  </figcaption>
+</figure>
+### OpenAPI
+**FastAPI** tạo ra một "schema" với tất cả API của bạn sử dụng tiêu chuẩn **OpenAPI** để định nghĩa các API.
+#### "Schema"
+Một "Schema" là một định nghĩa hoặc là mô tả về một thứ gì đó. Nó không phải đoạn mã để triển khai, mà nó chỉ là một mô tả trừu tượng.
+#### API "schema"
+Trong trường hợp này, **OpenAPI** là một đặc tả quy định cách mà định nghĩa ra một schema (lược đồ) cho API của bạn.
+
+Định nghĩa schema này bao gồm các đường dẫn API của bạn, những tham số mà chúng có thể sử dụng, ...
+#### Data "schema"
+Khái niệm "schema" có thể cũng liên quan tới cấu trúc của một số dữ liệu, giống như một nội dung JSON (JavaScript Object Notation). <i>JSON là một định dạng dữ liệu dạng văn bản nhẹ, độc lập với ngôn ngữ lập trình, và được dùng chủ yếu để lưu trữ và truyền tải dữ liệu giữa máy chủ và ứng dụng web.</i>
+
+trong trường hợp này, nó cũng có thể là các thuộc tính JSON, và các kiểu dữ liệu chúng có, ...
+#### OpenAPI và JSON Schema
+OpenAPI định nghĩa một API schema cho API của bạn. Và schema này bao gồm các định nghĩa (hoặc "schemas") của dữ liệu gửi và nhận bởi API của bạn sử dụng **JSON Schema**, là tiêu chuẩn cho schema dữ liệu JSON.
+#### Kiểm tra `openapi.json`
+Nếu bạn tò mò về schema OpenAPI nguyên thủy như thế nào, FastAPI tự động tạo ra một JSON (schema) với mô tả của tất cả API của bạn.
+
+Bạn có thể nhìn thấy nó trực tiếp tại: **http://0.0.0.0:8000/openapi.json**
+
+Nó sẽ cho thấy một JSON khởi đầu với những thứ giống như:
+```JSON
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "FastAPI",
+    "version": "0.1.0"
+  },
+  "paths": {
+    "/": {
+      "get": {
+        "summary": "Root",
+        "operationId": "root__get",
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+
+...
+```
+#### OpenAPI dùng để làm gì?
+Schema OpenAPI là sức mạnh của 2 tài liệu tương tác hệ thống đi kèm.
+
+Và có hàng tá lựa chọn thay thế khác, tất cả đều dựa vào OpenAPI. Bạn có thể đơn giản thêm bất kỳ thứ nào từ các lựa chọn thay thế đó cho dự án của bạn mà xây dựng với **FastAPI**.
+
+Bạn cũng có thể sử dụng nó để tạo code tự động, cho các máy khách mà giao tiếp với API của bạn. Ví dụ, frontend, mobile hoặc là các ứng dụng IoT.
+### Cấu hình `entrypoint` của ứng dụng trong `pyproject.toml`
+Bạn có thể cấu hình nơi ứng dụng của bạn được đặt ở trong file `pyproject.toml` giống như:
+```python
+[tool.fastapi]
+entrypoint = "main:app"
+```
+`entrypoint` này sẽ nói cho `fastapi` biết rằng nó nên import ứng dụng như sau:
+```python
+from main import app
+```
+Nếu cấu trúc code của bạn như sau:
+```
+.
+├── backend
+│   ├── main.py
+│   ├── __init__.py
+```
+Thì bạn sẽ thiết lập `entrypoint` như sau:
+```python
+[tool.fastapi]
+entrypoint = "backend.main:app"
+```
+Mà nó sẽ tương tự như:
+```python
+from backend.main import app
+```
+### `fastapi dev` với đường dẫn hoặc với tùy chọn CLI `--entrypoint`
+Bạn cũng có thể đưa đường dẫn file vào câu lệnh `fastapi dev`, và nó sẽ đoán đối tượng ứng dụng FastAPI để sử dụng:
+```bash
+fastapi dev main.py
+```
+Hoặc bạn cũng có thể sử dụng tùy chọn `--entrypoint` cho câu lệnh `fastapi dev`:
+```bash
+fastapi dev --entrypoint main:app
+```
+Nhưng bạn cũng cần phải nhớ đưa vào đúng đường dẫn/entrypoint mỗi khi bạn sử dụng câu lệnh fastapi.
+
+Ngoài ra, một số công cụ sẽ không cho phép tìm kiếm nó, ví dụ là **VS Code Extension** hoặc **FastAPI Cloud**, vì vậy `entrypoint` được khuyến nghị sử dụng trong file `pyproject.toml`.
+### Deploy ứng dụng của bạn (không bắt buộc)
+Bạn có thể deploy ứng dụng FastAPI của bạn đến **FastAPI Cloud** với 1 câu lệnh duy nhất.
+```bash
+fastapi deploy
+```
+CLI (Command Line Interface) sẽ tự động nhận diện ứng dụng FastAPI của bạn và deploy chúng vào cloud. Nếu bạn không có đăng nhập, trình duyệt web sẽ mở để hoàn tất quá trình xác thực.
+
+Và sau đó bạn sẽ có để truy cập vào ứng dụng của bạn thông qua URL đó.
+### Tóm tắt theo từng bước một
+#### Bước 1: import `FastAPI`
+```python
+from fastapi import FastAPI
+```
+`FastAPI` là một class Python mà cung cấp tất cả chức năng cho API của bạn. `FastAPI` cũng kế thừa trực tiếp từ `Starlette` nên bạn có thể sử dụng mọi chức năng của nó trong `FastAPI`.
+#### Bước 2: tạo một "thực thể" `FastAPI`
+```python
+app = FastAPI()
+```
+Đây là biến `app` mà sẽ là một "thực thể" của class `FastAPI`. Nó sẽ là nơi trực tiếp tương tác để tạo ra tất cả API của bạn.
+#### Bước 3: tạo một <i>đường dẫn thực thi</i>
+**Đường dẫn** ở đây đề cập đến phần cuối của URL bắt đầu từ dấu `/` đầu tiên. Ví dụ nếu đường dẫn là `https://example.com/items/foo` thì đường dẫn sẽ là `/items/foo`. Một đường dẫn cũng có thể được gọi là "endpoint" hoặc là "route". Trong khi xây dựng một API, "path" là cách chính để tách "mối quan tâm" và "nguồn lực".
+
+**Thực thi** ở đây định nghĩa tới một trong những "phương thức" HTTP. Có thể là `POST`, `GET`, `PUT`, `DELETE`, và một số thứ lạ hơn như `OPTIONS`, `HEAD`, `PATCH`, `TRACE`. Trong giao thức HTTP, bạn có thể giao tiếp với từng đường dẫn với một (hoặc nhiều) "phương thức".
+
+Trong khi xây dựng các API, bạn thường sẻ dụng những phương thức cụ thể để thực hiện một hành động cụ thể.
+
+Thông thường bạn sẽ dùng:
+- `POST` để tạo dữ liệu
+- `GET` để đọc dữ liệu
+- `PUT` để cập nhật dữ liệu
+- `DELETE` để xóa dữ liệu
+Vì vậy, trong OpenAPI, mỗi phương thức HTTP được gọi là một "thao tác".
+
+**Định nghĩa một decorator định tuyến (path operation decorator)**
+```python
+@app.get("/")
+```
+`@app.get("/")` nói cho **FastAPI** rằng hàm ngay phía dưới câu lệnh này chịu trách nhiệm xử lý yêu cầu được gửi tới nó.
+- Đường dẫn `/`
+- Sử dụng thao tác `get`
+- `@một_cái_gì_đó` trong Python được gọi là một "decorator". Bạn đặt nó ở đầu một hàm, khá giống như là đội một chiếc mũ trang trí (tôi đoán rằng khái niệm này đến từ đây). Một "decorator" nhận hàm số ở phía dưới và thực thi một vài thứ với nó . Trong trường hợp này, decorator này nói cho **FastAPI** rằng hàm số phía dưới tương ứng với đường dẫn `/` với một thao tác `get`. Và nó được gọi là **"path operation decorator"**
+
+Bạn cũng có thể sử dụng những thao tác khác như:
+- `@app.post()`
+- `@app.put()`
+- `@app.delete()`
+
+Và cũng có thể là những thao tác kỳ lạ khác:
+- `@app.options()`
+- `@app.head()`
+- `@app.patch()`
+- `@app.trace()`
+#### Bước 4: định nghĩa hàm định tuyến (path operation function)
+Đây là **hàm định tuyến** của chúng ta:
+- **đường dẫn** là `/`
+- **thao tác** là `get`
+- **hàm số** là hàm phía dưới "decorator" (dưới `@app.get("/")`)
+```python
+async def root():
+```
+Đây là hàm Python. Nó cũng có thể được gọi bởi **FastAPI** mỗi khi nó nhận một yêu cầu đến URL "`/`" sử dụng thao tác `get`. Trong trường hợp này, nó được gọi là một hàm `async`.
+
+Bạn cũng có thể định nghĩa nó như là một hàm bình thường thay vì `async def`:
+```python
+def root():
+```
+Nếu bạn thắc mắc điểm khác biệt giữa `def` và `async def` thì bạn có thể tham khảo <a href="https://fastapi.tiangolo.com/async/#technical-details">technical-details</a>.
+#### Bước 5: trả về nội dung
+```python
+    return {"message": "Hello World"}
+```
+Bạn có thể trả về một `dict`, `list`, một giá trị như `str`, `int`, ...
+
+Bạn cũng có thể trả về Pydantic models (sau này bạn sẽ biết nó rõ hơn).
+
+Có nhiều đối tượng khác và model mà sẽ tự động chuyển đổi thành JSON (bao gồm ORMs,...). Thử sử dụng thứ bạn thích nhất, nó có khả năng cao rằng chúng vẫn còn được hỗ trợ.
+#### Bước 6: Deploy ứng dụng
+Deploy ứng dụng của bạn đến **FastAPI Cloud** với 1 câu lệnh duy nhất: `fastapi deploy`.
+
+**FastAPI Cloud** được xây dựng bởi cùng tác giả và đội nhóm phía sau **FastAPI**. Nó giúp đơn giản hóa quy trình **xây dựng**, **deploy**, và **truy cập** một API mà đỡ tốn sức nhất. Nó tương đương với **kinh nghiệm lập trình** của một người xây dựng các ứng dụng với FastAPI để **deploy** chúng lên cloud. FastAPI Cloud là nhà tài trợ chính và là quỹ tài trợ cho các dự án mã nguồn mỡ FastAPI và các dự án liên quan khác.
+
+FastAPI là mã nguồn mở và dựa trên các tiêu chuẩn. Bạn có thể deploy các ứng dụng FastAPI đến bất kỳ nhà cung cấp cloud nào mà bạn chọn. Hãy theo dõi hướng dẫn của nhà cung cấp cloud để có thể deploy ứng dụng FastAPI với họ.
+
+### Tóm tắt lại
+- Import `FastAPI`
+- Tạo một thực thể `app`
+- Viết một **path operation decorator** sử dụng decorator như `@app.get("/")`
+- Định nghĩa một **path operation function**, ví dụ `def root(): ...`
+- Chạy server cho nhà phát triển với câu lệnh `fastapi dev`
+- Ngoài ra có thể deploy ứng dụng của bạn với `fastapi deploy`
+## I. Tham số đường dẫn
+Bạn có thể khai báo đường dẫn "tham số" hoặc "các biến" với cùng một cú pháp sử dụng Python format strings:
+```python
+from fastapi import FastAPI
+
+app = FastAPI()
+
+
+@app.get("/items/{item_id}")
+async def read_item(item_id):
+    return {"item_id": item_id}
+```
+Giá trị của đường dẫn tham số `item_id` sẽ được đưa vào trong hàm dưới dạng đối số `item_id`. Sau đó, bạn có thể chạy ví dụ trên và vào đường dẫn **http://0.0.0.0:8000/items/foo**, bạn sẽ thấy phản hồi như sau:
+```json
+{"item_id":"foo"}
+```
+### Đường dẫn tham số với các kiểu dữ liệu
+Bạn có thể khai báo loại của một đường dẫn tham số trong hàm, sử dụng Python type annotations tiêu chuẩn:
+```python
+from fastapi import FastAPI
+
+app = FastAPI()
+
+
+@app.get("/items/{item_id}")
+async def read_item(item_id: int):
+    return {"item_id": item_id}
+```
+Trong trường hợp này, `item_id` sẽ được khai báo là một kiểu `int`.
+### Chuyển đổi dữ liệu
+Nếu bạn chạy ví dụ trên và vào đường dẫn **http://0.0.0.0:8000/items/3** thì bạn sẽ thấy phản hồi như sau:
+```json
+{"item_id":3}
+```
+Chú ý rằng giá trị mà hàm số nhận được và trả về là `3`, là một kiểu `int` của Python, chứ không phải là một chuỗi `"3"`. Vì vậy, với khai báo kiểu dữ liệu thì FastAPI sẽ tự chuyển đổi kiểu dữ liệu tự động.
+### Xác thực dữ liệu
+Nhưng nếu bạn vào trình duyệt web với đường dẫn **http://0.0.0.0:8000/items/foo** thì bạn sẽ thấy một lỗi HTTP như sau:
+```json
+{
+  "detail": [
+    {
+      "type": "int_parsing",
+      "loc": [
+        "path",
+        "item_id"
+      ],
+      "msg": "Input should be a valid integer, unable to parse string as an integer",
+      "input": "foo"
+    }
+  ]
+}
+```
+Bởi vì đường dẫn tham số `item_id` có giá trị `"foo"` mà không phải là một số `int`. Lỗi tương tự cũng xuất hiện nếu bạn truyền vào một `float` thay vì `int`.
+### Tài liệu (documentation)
+Và khi bạn ở trên trình duyệt đường dẫn **http://0.0.0.0:8000/docs** thì bạn sẽ thấy một tài liệu API tương tác, tự động như sau:
+<figure style={{ textAlign: 'center' }}>
+  <Image src={myImage3} alt="Ảnh minh họa" />
+  <figcaption style={{ fontSize: '0.9rem', color: '#666', marginTop: '8px' }}>
+
+  </figcaption>
+</figure>
+### Lợi ích của tài liệu thay thế dựa trên tiêu chuẩn
+Và bởi vì schema được tạo ra từ tiêu chuẩn OpenAPI nên có rất nhiều công cụ thích hợp. Vì vậy, **FastAPI** cung cấp một tài liệu API thay thế (sử dụng ReDoc), mà bạn có thể truy cập ở **http://0.0.0.0:8000/redoc**
+<figure style={{ textAlign: 'center' }}>
+  <Image src={myImage4} alt="Ảnh minh họa" />
+  <figcaption style={{ fontSize: '0.9rem', color: '#666', marginTop: '8px' }}>
+
+  </figcaption>
+</figure>
+Tương tự như vậy, có khá nhiều công cụ tương thích, bao gồm cả các công cụ tạo code cho nhiều ngôn ngữ khác nhau.
+### Pydantic
+Tất cả công việc kiểm tra tính hợp lệ dữ liệu đều được thực hiện ngầm bởi **Pydantic**, nên bạn có thể lấy được tất cả lợi ích tự nó. 
