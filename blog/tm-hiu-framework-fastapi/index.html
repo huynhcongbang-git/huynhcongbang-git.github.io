@@ -1,0 +1,240 @@
+<!DOCTYPE html><html lang="en" data-theme="lofi"> <head><!-- Global Metadata --><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="generator" content="Astro v4.16.19"><!-- Primary Meta Tags --><title>Tìm hiểu framework FastAPI</title><meta name="title" content="Tìm hiểu framework FastAPI"><meta name="description" content="FastAPI là một web framework hiện đại, hiệu suất cao dùng để xây dựng các RESTful API bằng ngôn ngữ Python."><!-- Open Graph / Facebook --><meta property="og:type" content="article"><meta property="og:url" content="https://huynhcongbang.work.gd/blog/tm-hiu-framework-fastapi/"><meta property="og:title" content="Tìm hiểu framework FastAPI"><meta property="og:description" content="FastAPI là một web framework hiện đại, hiệu suất cao dùng để xây dựng các RESTful API bằng ngôn ngữ Python."><meta property="og:image" content="https://huynhcongbang.work.gd/post_fastapi_img.webp"><!-- Twitter --><meta property="twitter:card" content="summary_large_image"><meta property="twitter:url" content="https://huynhcongbang.work.gd/blog/tm-hiu-framework-fastapi/"><meta property="twitter:title" content="Tìm hiểu framework FastAPI"><meta property="twitter:description" content="FastAPI là một web framework hiện đại, hiệu suất cao dùng để xây dựng các RESTful API bằng ngôn ngữ Python."><meta property="twitter:image" content="https://huynhcongbang.work.gd/post_fastapi_img.webp"><meta name="astro-view-transitions-enabled" content="true"><meta name="astro-view-transitions-fallback" content="animate"><link rel="stylesheet" href="/_astro/_page_.Bf8a_tYf.css">
+<style>.time-line-container>div:last-child .education__time>.education__line{display:none}.astro-route-announcer{position:absolute;left:0;top:0;clip:rect(0 0 0 0);clip-path:inset(50%);overflow:hidden;white-space:nowrap;width:1px;height:1px}
+</style><script type="module" src="/_astro/hoisted.BScVxmeO.js"></script></head> <body> <div class="bg-base-100 drawer lg:drawer-open"> <input id="my-drawer" type="checkbox" class="drawer-toggle"> <div class="drawer-content bg-base-100"> <div class="sticky lg:hidden top-0 z-30 flex h-16 w-full justify-center bg-opacity-90 backdrop-blur transition-all duration-100 bg-base-100 text-base-content shadow-sm"> <div class="navbar"> <div class="navbar-start"> <label for="my-drawer" class="btn btn-square btn-ghost"> <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block w-5 h-5 stroke-current"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path> </svg> </label> </div> <div class="navbar-center"> <a class="btn btn-ghost normal-case text-xl" href="/">HUỲNH CÔNG BẰNG</a> </div> <div class="navbar-end"></div> </div> </div> <div class="md:flex md:justify-center"> <main class="p-6 pt-10 lg:max-w-[900px] max-w-[100vw]">  <main class="md:flex md:justify-center"> <article class="prose prose-lg max-w-[750px] prose-img:mx-auto"> <img src="/post_fastapi_img.webp" alt="Tìm hiểu framework FastAPI" class="w-full mb-6" width="750" height="422" loading="lazy" decoding="async"> <h1 class="title my-2 text-4xl font-bold">Tìm hiểu framework FastAPI</h1> <time>Aug 2, 2026</time> <br> <div class="badge badge-secondary my-1">python</div> <a href="/blog/tag/framework" class="badge badge-outline ml-2 no-underline"> framework </a>  <div class="divider my-2"></div>  <p>[Nguồn: <a href="https://fastapi.tiangolo.com/tutorial/">https://fastapi.tiangolo.com/tutorial/</a>, Lần cuối truy cập: 2/8/2026]</p>
+<p>Một FastAPI đơn giản nhất có thể trông giống như:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8;overflow-x:auto" tabindex="0" data-language="python"><code><span class="line"><span style="color:#F97583">from</span><span style="color:#E1E4E8"> fastapi </span><span style="color:#F97583">import</span><span style="color:#E1E4E8"> FastAPI</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">app </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> FastAPI()</span></span>
+<span class="line"></span>
+<span class="line"></span>
+<span class="line"><span style="color:#B392F0">@app.get</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">&quot;/&quot;</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#F97583">async</span><span style="color:#F97583"> def</span><span style="color:#B392F0"> root</span><span style="color:#E1E4E8">():</span></span>
+<span class="line"><span style="color:#F97583">    return</span><span style="color:#E1E4E8"> {</span><span style="color:#9ECBFF">&quot;message&quot;</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">&quot;Hello world&quot;</span><span style="color:#E1E4E8">}</span></span>
+<span class="line"></span></code></pre>
+<p>Dán đoạn mã đó vào file <code>main.py</code> và chạy câu lệnh <code>fastapi run main.py</code></p>
+<figure style="text-align:center"><img src="/_astro/post3-1.CuaNHGvZ_1jv2HR.webp" alt="Ảnh minh họa" width="594" height="291" loading="lazy" decoding="async"><figcaption style="font-size:0.9rem;color:#666;margin-top:8px"></figcaption></figure>
+<p>Ở phần kết quả đầu ra, có một dòng giống như vậy:</p>
+<p><code>Uvicorn running on http://0.0.0.0:8000 (Press CTR+C to quit)</code></p>
+<p>Dòng này cho biết địa chỉ URL nơi mà ứng dụng đang chạy trên hệ thống cục bộ của bạn. Mở trình duyệt với địa chỉ <strong><a href="http://0.0.0.0:8000">http://0.0.0.0:8000</a></strong>, bạn sẽ nhìn thấy phản hồi JSON giống như: <code>{&quot;message&quot;:&quot;Hello World&quot;}</code>.</p>
+<p>Bây giờ hãy vào đường dẫn <strong><a href="http://0.0.0.0:8000/docs">http://0.0.0.0:8000/docs</a></strong>. Bạn sẽ thấy tài liệu API tương tác tự động (được cung cấp bởi Swagger UI)</p>
+<figure style="text-align:center"><img src="/_astro/post3-2.C8GNi_Yq_2evpV.webp" alt="Ảnh minh họa" width="925" height="872" loading="lazy" decoding="async"><figcaption style="font-size:0.9rem;color:#666;margin-top:8px"></figcaption></figure>
+<p>Tiếp theo, vào đường dẫn <strong><a href="http://0.0.0.0:8000/redoc">http://0.0.0.0:8000/redoc</a></strong>. Bạn sẽ thấy tài liệu API thay thế được cung cấp bởi ReDoc)</p>
+<figure style="text-align:center"><img src="/_astro/post3-3.CfNggQiL_Z2cTauL.webp" alt="Ảnh minh họa" width="925" height="918" loading="lazy" decoding="async"><figcaption style="font-size:0.9rem;color:#666;margin-top:8px"></figcaption></figure>
+<h3 id="openapi">OpenAPI</h3>
+<p><strong>FastAPI</strong> tạo ra một “schema” với tất cả API của bạn sử dụng tiêu chuẩn <strong>OpenAPI</strong> để định nghĩa các API.</p>
+<h4 id="schema">”Schema”</h4>
+<p>Một “Schema” là một định nghĩa hoặc là mô tả về một thứ gì đó. Nó không phải đoạn mã để triển khai, mà nó chỉ là một mô tả trừu tượng.</p>
+<h4 id="api-schema">API “schema”</h4>
+<p>Trong trường hợp này, <strong>OpenAPI</strong> là một đặc tả quy định cách mà định nghĩa ra một schema (lược đồ) cho API của bạn.</p>
+<p>Định nghĩa schema này bao gồm các đường dẫn API của bạn, những tham số mà chúng có thể sử dụng, …</p>
+<h4 id="data-schema">Data “schema”</h4>
+<p>Khái niệm “schema” có thể cũng liên quan tới cấu trúc của một số dữ liệu, giống như một nội dung JSON (JavaScript Object Notation). <i>JSON là một định dạng dữ liệu dạng văn bản nhẹ, độc lập với ngôn ngữ lập trình, và được dùng chủ yếu để lưu trữ và truyền tải dữ liệu giữa máy chủ và ứng dụng web.</i></p>
+<p>trong trường hợp này, nó cũng có thể là các thuộc tính JSON, và các kiểu dữ liệu chúng có, …</p>
+<h4 id="openapi-và-json-schema">OpenAPI và JSON Schema</h4>
+<p>OpenAPI định nghĩa một API schema cho API của bạn. Và schema này bao gồm các định nghĩa (hoặc “schemas”) của dữ liệu gửi và nhận bởi API của bạn sử dụng <strong>JSON Schema</strong>, là tiêu chuẩn cho schema dữ liệu JSON.</p>
+<h4 id="kiểm-tra-openapijson">Kiểm tra <code>openapi.json</code></h4>
+<p>Nếu bạn tò mò về schema OpenAPI nguyên thủy như thế nào, FastAPI tự động tạo ra một JSON (schema) với mô tả của tất cả API của bạn.</p>
+<p>Bạn có thể nhìn thấy nó trực tiếp tại: <strong><a href="http://0.0.0.0:8000/openapi.json">http://0.0.0.0:8000/openapi.json</a></strong></p>
+<p>Nó sẽ cho thấy một JSON khởi đầu với những thứ giống như:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8;overflow-x:auto" tabindex="0" data-language="plaintext"><code><span class="line"><span>{</span></span>
+<span class="line"><span>  &quot;openapi&quot;: &quot;3.1.0&quot;,</span></span>
+<span class="line"><span>  &quot;info&quot;: {</span></span>
+<span class="line"><span>    &quot;title&quot;: &quot;FastAPI&quot;,</span></span>
+<span class="line"><span>    &quot;version&quot;: &quot;0.1.0&quot;</span></span>
+<span class="line"><span>  },</span></span>
+<span class="line"><span>  &quot;paths&quot;: {</span></span>
+<span class="line"><span>    &quot;/&quot;: {</span></span>
+<span class="line"><span>      &quot;get&quot;: {</span></span>
+<span class="line"><span>        &quot;summary&quot;: &quot;Root&quot;,</span></span>
+<span class="line"><span>        &quot;operationId&quot;: &quot;root__get&quot;,</span></span>
+<span class="line"><span>        &quot;responses&quot;: {</span></span>
+<span class="line"><span>          &quot;200&quot;: {</span></span>
+<span class="line"><span>            &quot;description&quot;: &quot;Successful Response&quot;,</span></span>
+<span class="line"><span>            &quot;content&quot;: {</span></span>
+<span class="line"><span>              &quot;application/json&quot;: {</span></span>
+<span class="line"><span>                &quot;schema&quot;: {</span></span>
+<span class="line"><span></span></span>
+<span class="line"><span>...</span></span>
+<span class="line"><span></span></span></code></pre>
+<h4 id="openapi-dùng-để-làm-gì">OpenAPI dùng để làm gì?</h4>
+<p>Schema OpenAPI là sức mạnh của 2 tài liệu tương tác hệ thống đi kèm.</p>
+<p>Và có hàng tá lựa chọn thay thế khác, tất cả đều dựa vào OpenAPI. Bạn có thể đơn giản thêm bất kỳ thứ nào từ các lựa chọn thay thế đó cho dự án của bạn mà xây dựng với <strong>FastAPI</strong>.</p>
+<p>Bạn cũng có thể sử dụng nó để tạo code tự động, cho các máy khách mà giao tiếp với API của bạn. Ví dụ, frontend, mobile hoặc là các ứng dụng IoT.</p>
+<h3 id="cấu-hình-entrypoint-của-ứng-dụng-trong-pyprojecttoml">Cấu hình <code>entrypoint</code> của ứng dụng trong <code>pyproject.toml</code></h3>
+<p>Bạn có thể cấu hình nơi ứng dụng của bạn được đặt ở trong file <code>pyproject.toml</code> giống như:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8;overflow-x:auto" tabindex="0" data-language="python"><code><span class="line"><span style="color:#E1E4E8">[tool.fastapi]</span></span>
+<span class="line"><span style="color:#E1E4E8">entrypoint </span><span style="color:#F97583">=</span><span style="color:#9ECBFF"> &quot;main:app&quot;</span></span>
+<span class="line"></span></code></pre>
+<p><code>entrypoint</code> này sẽ nói cho <code>fastapi</code> biết rằng nó nên import ứng dụng như sau:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8;overflow-x:auto" tabindex="0" data-language="python"><code><span class="line"><span style="color:#F97583">from</span><span style="color:#E1E4E8"> main </span><span style="color:#F97583">import</span><span style="color:#E1E4E8"> app</span></span>
+<span class="line"></span></code></pre>
+<p>Nếu cấu trúc code của bạn như sau:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8;overflow-x:auto" tabindex="0" data-language="plaintext"><code><span class="line"><span>.</span></span>
+<span class="line"><span>├── backend</span></span>
+<span class="line"><span>│   ├── main.py</span></span>
+<span class="line"><span>│   ├── __init__.py</span></span>
+<span class="line"><span></span></span></code></pre>
+<p>Thì bạn sẽ thiết lập <code>entrypoint</code> như sau:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8;overflow-x:auto" tabindex="0" data-language="python"><code><span class="line"><span style="color:#E1E4E8">[tool.fastapi]</span></span>
+<span class="line"><span style="color:#E1E4E8">entrypoint </span><span style="color:#F97583">=</span><span style="color:#9ECBFF"> &quot;backend.main:app&quot;</span></span>
+<span class="line"></span></code></pre>
+<p>Mà nó sẽ tương tự như:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8;overflow-x:auto" tabindex="0" data-language="python"><code><span class="line"><span style="color:#F97583">from</span><span style="color:#E1E4E8"> backend.main </span><span style="color:#F97583">import</span><span style="color:#E1E4E8"> app</span></span>
+<span class="line"></span></code></pre>
+<h3 id="fastapi-dev-với-đường-dẫn-hoặc-với-tùy-chọn-cli---entrypoint"><code>fastapi dev</code> với đường dẫn hoặc với tùy chọn CLI <code>--entrypoint</code></h3>
+<p>Bạn cũng có thể đưa đường dẫn file vào câu lệnh <code>fastapi dev</code>, và nó sẽ đoán đối tượng ứng dụng FastAPI để sử dụng:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8;overflow-x:auto" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">fastapi</span><span style="color:#9ECBFF"> dev</span><span style="color:#9ECBFF"> main.py</span></span>
+<span class="line"></span></code></pre>
+<p>Hoặc bạn cũng có thể sử dụng tùy chọn <code>--entrypoint</code> cho câu lệnh <code>fastapi dev</code>:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8;overflow-x:auto" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">fastapi</span><span style="color:#9ECBFF"> dev</span><span style="color:#79B8FF"> --entrypoint</span><span style="color:#9ECBFF"> main:app</span></span>
+<span class="line"></span></code></pre>
+<p>Nhưng bạn cũng cần phải nhớ đưa vào đúng đường dẫn/entrypoint mỗi khi bạn sử dụng câu lệnh fastapi.</p>
+<p>Ngoài ra, một số công cụ sẽ không cho phép tìm kiếm nó, ví dụ là <strong>VS Code Extension</strong> hoặc <strong>FastAPI Cloud</strong>, vì vậy <code>entrypoint</code> được khuyến nghị sử dụng trong file <code>pyproject.toml</code>.</p>
+<h3 id="deploy-ứng-dụng-của-bạn-không-bắt-buộc">Deploy ứng dụng của bạn (không bắt buộc)</h3>
+<p>Bạn có thể deploy ứng dụng FastAPI của bạn đến <strong>FastAPI Cloud</strong> với 1 câu lệnh duy nhất.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8;overflow-x:auto" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">fastapi</span><span style="color:#9ECBFF"> deploy</span></span>
+<span class="line"></span></code></pre>
+<p>CLI (Command Line Interface) sẽ tự động nhận diện ứng dụng FastAPI của bạn và deploy chúng vào cloud. Nếu bạn không có đăng nhập, trình duyệt web sẽ mở để hoàn tất quá trình xác thực.</p>
+<p>Và sau đó bạn sẽ có để truy cập vào ứng dụng của bạn thông qua URL đó.</p>
+<h3 id="tóm-tắt-theo-từng-bước-một">Tóm tắt theo từng bước một</h3>
+<h4 id="bước-1-import-fastapi">Bước 1: import <code>FastAPI</code></h4>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8;overflow-x:auto" tabindex="0" data-language="python"><code><span class="line"><span style="color:#F97583">from</span><span style="color:#E1E4E8"> fastapi </span><span style="color:#F97583">import</span><span style="color:#E1E4E8"> FastAPI</span></span>
+<span class="line"></span></code></pre>
+<p><code>FastAPI</code> là một class Python mà cung cấp tất cả chức năng cho API của bạn. <code>FastAPI</code> cũng kế thừa trực tiếp từ <code>Starlette</code> nên bạn có thể sử dụng mọi chức năng của nó trong <code>FastAPI</code>.</p>
+<h4 id="bước-2-tạo-một-thực-thể-fastapi">Bước 2: tạo một “thực thể” <code>FastAPI</code></h4>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8;overflow-x:auto" tabindex="0" data-language="python"><code><span class="line"><span style="color:#E1E4E8">app </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> FastAPI()</span></span>
+<span class="line"></span></code></pre>
+<p>Đây là biến <code>app</code> mà sẽ là một “thực thể” của class <code>FastAPI</code>. Nó sẽ là nơi trực tiếp tương tác để tạo ra tất cả API của bạn.</p>
+<h4 id="bước-3-tạo-một-đường-dẫn-thực-thi">Bước 3: tạo một <i>đường dẫn thực thi</i></h4>
+<p><strong>Đường dẫn</strong> ở đây đề cập đến phần cuối của URL bắt đầu từ dấu <code>/</code> đầu tiên. Ví dụ nếu đường dẫn là <code>https://example.com/items/foo</code> thì đường dẫn sẽ là <code>/items/foo</code>. Một đường dẫn cũng có thể được gọi là “endpoint” hoặc là “route”. Trong khi xây dựng một API, “path” là cách chính để tách “mối quan tâm” và “nguồn lực”.</p>
+<p><strong>Thực thi</strong> ở đây định nghĩa tới một trong những “phương thức” HTTP. Có thể là <code>POST</code>, <code>GET</code>, <code>PUT</code>, <code>DELETE</code>, và một số thứ lạ hơn như <code>OPTIONS</code>, <code>HEAD</code>, <code>PATCH</code>, <code>TRACE</code>. Trong giao thức HTTP, bạn có thể giao tiếp với từng đường dẫn với một (hoặc nhiều) “phương thức”.</p>
+<p>Trong khi xây dựng các API, bạn thường sẻ dụng những phương thức cụ thể để thực hiện một hành động cụ thể.</p>
+<p>Thông thường bạn sẽ dùng:</p>
+<ul>
+<li><code>POST</code> để tạo dữ liệu</li>
+<li><code>GET</code> để đọc dữ liệu</li>
+<li><code>PUT</code> để cập nhật dữ liệu</li>
+<li><code>DELETE</code> để xóa dữ liệu
+Vì vậy, trong OpenAPI, mỗi phương thức HTTP được gọi là một “thao tác”.</li>
+</ul>
+<p><strong>Định nghĩa một decorator định tuyến (path operation decorator)</strong></p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8;overflow-x:auto" tabindex="0" data-language="python"><code><span class="line"><span style="color:#B392F0">@app.get</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">&quot;/&quot;</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"></span></code></pre>
+<p><code>@app.get(&quot;/&quot;)</code> nói cho <strong>FastAPI</strong> rằng hàm ngay phía dưới câu lệnh này chịu trách nhiệm xử lý yêu cầu được gửi tới nó.</p>
+<ul>
+<li>Đường dẫn <code>/</code></li>
+<li>Sử dụng thao tác <code>get</code></li>
+<li><code>@một_cái_gì_đó</code> trong Python được gọi là một “decorator”. Bạn đặt nó ở đầu một hàm, khá giống như là đội một chiếc mũ trang trí (tôi đoán rằng khái niệm này đến từ đây). Một “decorator” nhận hàm số ở phía dưới và thực thi một vài thứ với nó . Trong trường hợp này, decorator này nói cho <strong>FastAPI</strong> rằng hàm số phía dưới tương ứng với đường dẫn <code>/</code> với một thao tác <code>get</code>. Và nó được gọi là <strong>“path operation decorator”</strong></li>
+</ul>
+<p>Bạn cũng có thể sử dụng những thao tác khác như:</p>
+<ul>
+<li><code>@app.post()</code></li>
+<li><code>@app.put()</code></li>
+<li><code>@app.delete()</code></li>
+</ul>
+<p>Và cũng có thể là những thao tác kỳ lạ khác:</p>
+<ul>
+<li><code>@app.options()</code></li>
+<li><code>@app.head()</code></li>
+<li><code>@app.patch()</code></li>
+<li><code>@app.trace()</code></li>
+</ul>
+<h4 id="bước-4-định-nghĩa-hàm-định-tuyến-path-operation-function">Bước 4: định nghĩa hàm định tuyến (path operation function)</h4>
+<p>Đây là <strong>hàm định tuyến</strong> của chúng ta:</p>
+<ul>
+<li><strong>đường dẫn</strong> là <code>/</code></li>
+<li><strong>thao tác</strong> là <code>get</code></li>
+<li><strong>hàm số</strong> là hàm phía dưới “decorator” (dưới <code>@app.get(&quot;/&quot;)</code>)</li>
+</ul>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8;overflow-x:auto" tabindex="0" data-language="python"><code><span class="line"><span style="color:#F97583">async</span><span style="color:#F97583"> def</span><span style="color:#B392F0"> root</span><span style="color:#E1E4E8">():</span></span>
+<span class="line"></span></code></pre>
+<p>Đây là hàm Python. Nó cũng có thể được gọi bởi <strong>FastAPI</strong> mỗi khi nó nhận một yêu cầu đến URL “<code>/</code>” sử dụng thao tác <code>get</code>. Trong trường hợp này, nó được gọi là một hàm <code>async</code>.</p>
+<p>Bạn cũng có thể định nghĩa nó như là một hàm bình thường thay vì <code>async def</code>:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8;overflow-x:auto" tabindex="0" data-language="python"><code><span class="line"><span style="color:#F97583">def</span><span style="color:#B392F0"> root</span><span style="color:#E1E4E8">():</span></span>
+<span class="line"></span></code></pre>
+<p>Nếu bạn thắc mắc điểm khác biệt giữa <code>def</code> và <code>async def</code> thì bạn có thể tham khảo <a href="https://fastapi.tiangolo.com/async/#technical-details">technical-details</a>.</p>
+<h4 id="bước-5-trả-về-nội-dung">Bước 5: trả về nội dung</h4>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8;overflow-x:auto" tabindex="0" data-language="python"><code><span class="line"><span style="color:#F97583">    return</span><span style="color:#E1E4E8"> {</span><span style="color:#9ECBFF">&quot;message&quot;</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">&quot;Hello World&quot;</span><span style="color:#E1E4E8">}</span></span>
+<span class="line"></span></code></pre>
+<p>Bạn có thể trả về một <code>dict</code>, <code>list</code>, một giá trị như <code>str</code>, <code>int</code>, …</p>
+<p>Bạn cũng có thể trả về Pydantic models (sau này bạn sẽ biết nó rõ hơn).</p>
+<p>Có nhiều đối tượng khác và model mà sẽ tự động chuyển đổi thành JSON (bao gồm ORMs,…). Thử sử dụng thứ bạn thích nhất, nó có khả năng cao rằng chúng vẫn còn được hỗ trợ.</p>
+<h4 id="bước-6-deploy-ứng-dụng">Bước 6: Deploy ứng dụng</h4>
+<p>Deploy ứng dụng của bạn đến <strong>FastAPI Cloud</strong> với 1 câu lệnh duy nhất: <code>fastapi deploy</code>.</p>
+<p><strong>FastAPI Cloud</strong> được xây dựng bởi cùng tác giả và đội nhóm phía sau <strong>FastAPI</strong>. Nó giúp đơn giản hóa quy trình <strong>xây dựng</strong>, <strong>deploy</strong>, và <strong>truy cập</strong> một API mà đỡ tốn sức nhất. Nó tương đương với <strong>kinh nghiệm lập trình</strong> của một người xây dựng các ứng dụng với FastAPI để <strong>deploy</strong> chúng lên cloud. FastAPI Cloud là nhà tài trợ chính và là quỹ tài trợ cho các dự án mã nguồn mỡ FastAPI và các dự án liên quan khác.</p>
+<p>FastAPI là mã nguồn mở và dựa trên các tiêu chuẩn. Bạn có thể deploy các ứng dụng FastAPI đến bất kỳ nhà cung cấp cloud nào mà bạn chọn. Hãy theo dõi hướng dẫn của nhà cung cấp cloud để có thể deploy ứng dụng FastAPI với họ.</p>
+<h3 id="tóm-tắt-lại">Tóm tắt lại</h3>
+<ul>
+<li>Import <code>FastAPI</code></li>
+<li>Tạo một thực thể <code>app</code></li>
+<li>Viết một <strong>path operation decorator</strong> sử dụng decorator như <code>@app.get(&quot;/&quot;)</code></li>
+<li>Định nghĩa một <strong>path operation function</strong>, ví dụ <code>def root(): ...</code></li>
+<li>Chạy server cho nhà phát triển với câu lệnh <code>fastapi dev</code></li>
+<li>Ngoài ra có thể deploy ứng dụng của bạn với <code>fastapi deploy</code></li>
+</ul>
+<h2 id="i-tham-số-đường-dẫn">I. Tham số đường dẫn</h2>
+<p>Bạn có thể khai báo đường dẫn “tham số” hoặc “các biến” với cùng một cú pháp sử dụng Python format strings:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8;overflow-x:auto" tabindex="0" data-language="python"><code><span class="line"><span style="color:#F97583">from</span><span style="color:#E1E4E8"> fastapi </span><span style="color:#F97583">import</span><span style="color:#E1E4E8"> FastAPI</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">app </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> FastAPI()</span></span>
+<span class="line"></span>
+<span class="line"></span>
+<span class="line"><span style="color:#B392F0">@app.get</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">&quot;/items/</span><span style="color:#79B8FF">{item_id}</span><span style="color:#9ECBFF">&quot;</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#F97583">async</span><span style="color:#F97583"> def</span><span style="color:#B392F0"> read_item</span><span style="color:#E1E4E8">(item_id):</span></span>
+<span class="line"><span style="color:#F97583">    return</span><span style="color:#E1E4E8"> {</span><span style="color:#9ECBFF">&quot;item_id&quot;</span><span style="color:#E1E4E8">: item_id}</span></span>
+<span class="line"></span></code></pre>
+<p>Giá trị của đường dẫn tham số <code>item_id</code> sẽ được đưa vào trong hàm dưới dạng đối số <code>item_id</code>. Sau đó, bạn có thể chạy ví dụ trên và vào đường dẫn <strong><a href="http://0.0.0.0:8000/items/foo">http://0.0.0.0:8000/items/foo</a></strong>, bạn sẽ thấy phản hồi như sau:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8;overflow-x:auto" tabindex="0" data-language="json"><code><span class="line"><span style="color:#E1E4E8">{</span><span style="color:#79B8FF">&quot;item_id&quot;</span><span style="color:#E1E4E8">:</span><span style="color:#9ECBFF">&quot;foo&quot;</span><span style="color:#E1E4E8">}</span></span>
+<span class="line"></span></code></pre>
+<h3 id="đường-dẫn-tham-số-với-các-kiểu-dữ-liệu">Đường dẫn tham số với các kiểu dữ liệu</h3>
+<p>Bạn có thể khai báo loại của một đường dẫn tham số trong hàm, sử dụng Python type annotations tiêu chuẩn:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8;overflow-x:auto" tabindex="0" data-language="python"><code><span class="line"><span style="color:#F97583">from</span><span style="color:#E1E4E8"> fastapi </span><span style="color:#F97583">import</span><span style="color:#E1E4E8"> FastAPI</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">app </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> FastAPI()</span></span>
+<span class="line"></span>
+<span class="line"></span>
+<span class="line"><span style="color:#B392F0">@app.get</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">&quot;/items/</span><span style="color:#79B8FF">{item_id}</span><span style="color:#9ECBFF">&quot;</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#F97583">async</span><span style="color:#F97583"> def</span><span style="color:#B392F0"> read_item</span><span style="color:#E1E4E8">(item_id: </span><span style="color:#79B8FF">int</span><span style="color:#E1E4E8">):</span></span>
+<span class="line"><span style="color:#F97583">    return</span><span style="color:#E1E4E8"> {</span><span style="color:#9ECBFF">&quot;item_id&quot;</span><span style="color:#E1E4E8">: item_id}</span></span>
+<span class="line"></span></code></pre>
+<p>Trong trường hợp này, <code>item_id</code> sẽ được khai báo là một kiểu <code>int</code>.</p>
+<h3 id="chuyển-đổi-dữ-liệu">Chuyển đổi dữ liệu</h3>
+<p>Nếu bạn chạy ví dụ trên và vào đường dẫn <strong><a href="http://0.0.0.0:8000/items/3">http://0.0.0.0:8000/items/3</a></strong> thì bạn sẽ thấy phản hồi như sau:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8;overflow-x:auto" tabindex="0" data-language="json"><code><span class="line"><span style="color:#E1E4E8">{</span><span style="color:#79B8FF">&quot;item_id&quot;</span><span style="color:#E1E4E8">:</span><span style="color:#79B8FF">3</span><span style="color:#E1E4E8">}</span></span>
+<span class="line"></span></code></pre>
+<p>Chú ý rằng giá trị mà hàm số nhận được và trả về là <code>3</code>, là một kiểu <code>int</code> của Python, chứ không phải là một chuỗi <code>&quot;3&quot;</code>. Vì vậy, với khai báo kiểu dữ liệu thì FastAPI sẽ tự chuyển đổi kiểu dữ liệu tự động.</p>
+<h3 id="xác-thực-dữ-liệu">Xác thực dữ liệu</h3>
+<p>Nhưng nếu bạn vào trình duyệt web với đường dẫn <strong><a href="http://0.0.0.0:8000/items/foo">http://0.0.0.0:8000/items/foo</a></strong> thì bạn sẽ thấy một lỗi HTTP như sau:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8;overflow-x:auto" tabindex="0" data-language="json"><code><span class="line"><span style="color:#E1E4E8">{</span></span>
+<span class="line"><span style="color:#79B8FF">  &quot;detail&quot;</span><span style="color:#E1E4E8">: [</span></span>
+<span class="line"><span style="color:#E1E4E8">    {</span></span>
+<span class="line"><span style="color:#79B8FF">      &quot;type&quot;</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">&quot;int_parsing&quot;</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#79B8FF">      &quot;loc&quot;</span><span style="color:#E1E4E8">: [</span></span>
+<span class="line"><span style="color:#9ECBFF">        &quot;path&quot;</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#9ECBFF">        &quot;item_id&quot;</span></span>
+<span class="line"><span style="color:#E1E4E8">      ],</span></span>
+<span class="line"><span style="color:#79B8FF">      &quot;msg&quot;</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">&quot;Input should be a valid integer, unable to parse string as an integer&quot;</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#79B8FF">      &quot;input&quot;</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">&quot;foo&quot;</span></span>
+<span class="line"><span style="color:#E1E4E8">    }</span></span>
+<span class="line"><span style="color:#E1E4E8">  ]</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span>
+<span class="line"></span></code></pre>
+<p>Bởi vì đường dẫn tham số <code>item_id</code> có giá trị <code>&quot;foo&quot;</code> mà không phải là một số <code>int</code>. Lỗi tương tự cũng xuất hiện nếu bạn truyền vào một <code>float</code> thay vì <code>int</code>.</p>
+<h3 id="tài-liệu-documentation">Tài liệu (documentation)</h3>
+<p>Và khi bạn ở trên trình duyệt đường dẫn <strong><a href="http://0.0.0.0:8000/docs">http://0.0.0.0:8000/docs</a></strong> thì bạn sẽ thấy một tài liệu API tương tác, tự động như sau:</p>
+<figure style="text-align:center"><img src="/_astro/post3-4.BuuLCU5u_ZwojDL.webp" alt="Ảnh minh họa" width="889" height="606" loading="lazy" decoding="async"><figcaption style="font-size:0.9rem;color:#666;margin-top:8px"></figcaption></figure>
+<h3 id="lợi-ích-của-tài-liệu-thay-thế-dựa-trên-tiêu-chuẩn">Lợi ích của tài liệu thay thế dựa trên tiêu chuẩn</h3>
+<p>Và bởi vì schema được tạo ra từ tiêu chuẩn OpenAPI nên có rất nhiều công cụ thích hợp. Vì vậy, <strong>FastAPI</strong> cung cấp một tài liệu API thay thế (sử dụng ReDoc), mà bạn có thể truy cập ở <strong><a href="http://0.0.0.0:8000/redoc">http://0.0.0.0:8000/redoc</a></strong></p>
+<figure style="text-align:center"><img src="/_astro/post3-5.aKWeQzIc_ZTMxA.webp" alt="Ảnh minh họa" width="915" height="971" loading="lazy" decoding="async"><figcaption style="font-size:0.9rem;color:#666;margin-top:8px"></figcaption></figure>
+<p>Tương tự như vậy, có khá nhiều công cụ tương thích, bao gồm cả các công cụ tạo code cho nhiều ngôn ngữ khác nhau.</p>
+<h3 id="pydantic">Pydantic</h3>
+<p>Tất cả công việc kiểm tra tính hợp lệ dữ liệu đều được thực hiện ngầm bởi <strong>Pydantic</strong>, nên bạn có thể lấy được tất cả lợi ích tự nó.</p>  </article> </main>  </main> </div> <footer class="footer footer-center block mb-5 pt-10"> <div class="pb-2">
+&copy; 2026 Huỳnh Công Bằng
+</div> <div class="inline opacity-75">
+Developed by <a href="https://manuelernestog.github.io" target="_blank" class="font-bold">Manuel Ernesto</a> using
+<!-- Thanks for using this template. You can keep this line to support my work :) --> <a href="https://astrofy-template.netlify.app/" target="_blank" class="font-bold">Astrofy Template ⚡️</a> </div> </footer>  </div> <div class="drawer-side z-40"> <label for="my-drawer" class="drawer-overlay"></label> <aside class="px-2 pt-2 h-auto min-h-full w-[19rem] bg-base-200 text-base-content flex flex-col"> <div class="w-fit mx-auto mt-5 mb-6"> <a href="/"> <div class="avatar transition ease-in-out hover:scale-[102%] block m-auto"> <div class="w-[8.5rem]"> <img src="/profile.webp" class="mask mask-circle" alt="Profile image" width="300" height="300" loading="lazy" decoding="async"> </div> </div> </a> </div> <ul class="menu grow shrink menu-md overflow-y-auto"> <li><a class="py-3 text-base" id="home" href="/">Home</a></li> <li><a class="py-3 text-base" id="projects" href="/projects">Projects</a></li> <li><a class="py-3 text-base" id="services" href="/services">Services</a></li> <li><a class="py-3 text-base" id="store" href="/store">Store</a></li> <li><a class="py-3 text-base" id="blog" href="/blog/">Blog</a></li> <li><a class="py-3 text-base" id="cv" href="/cv">CV</a></li> <li> <a class="py-3 text-base" href="mailto:contact.manuelernestog@gmail.com" target="_blank" referrerpolicy="no-referrer-when-downgrade">Contact</a> </li> </ul> <script>(function(){const sideBarActiveItemID = undefined;
+const activeClass = "bg-base-300";
+
+const activeItemElem = document.getElementById(sideBarActiveItemID);
+activeItemElem && activeItemElem.classList.add(activeClass);
+})();</script> <div class="block sticky pointer-events-none bottom-10 bg-base-200 justify-center h-12 [mask-image:linear-gradient(transparent,#000000)]"></div> <div class="social-icons px-4 pb-5 pt-1 flex self-center justify-center sticky bottom-0 bg-base-200"> <a href="https://huynhcongbang-git.github.io/" target="_blank" class="mx-3" aria-label="Support my work" title="Support my work"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: currentColor;transform: ;msFilter:;"><path fill-rule="evenodd" clip-rule="evenodd" d="M5 2h2v3H5zm4 0h2v3H9zm4 0h2v3h-2zm6 7h-2V7H3v11c0 1.654 1.346 3 3 3h8c1.654 0 3-1.346 3-3h2c1.103 0 2-.897 2-2v-5c0-1.103-.897-2-2-2zm-4 9a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1V9h10v9zm2-2v-5h2l.002 5H17z"></path></svg> </a> <a href="https://github.com/huynhcongbang-git" target="_blank" class="mx-3" aria-label="Github" title="Github"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: currentColor;transform: ;msFilter:;"><path fill-rule="evenodd" clip-rule="evenodd" d="M12.026 2c-5.509 0-9.974 4.465-9.974 9.974 0 4.406 2.857 8.145 6.821 9.465.499.09.679-.217.679-.481 0-.237-.008-.865-.011-1.696-2.775.602-3.361-1.338-3.361-1.338-.452-1.152-1.107-1.459-1.107-1.459-.905-.619.069-.605.069-.605 1.002.07 1.527 1.028 1.527 1.028.89 1.524 2.336 1.084 2.902.829.091-.645.351-1.085.635-1.334-2.214-.251-4.542-1.107-4.542-4.93 0-1.087.389-1.979 1.024-2.675-.101-.253-.446-1.268.099-2.64 0 0 .837-.269 2.742 1.021a9.582 9.582 0 0 1 2.496-.336 9.554 9.554 0 0 1 2.496.336c1.906-1.291 2.742-1.021 2.742-1.021.545 1.372.203 2.387.099 2.64.64.696 1.024 1.587 1.024 2.675 0 3.833-2.33 4.675-4.552 4.922.355.308.675.916.675 1.846 0 1.334-.012 2.41-.012 2.737 0 .267.178.577.687.479C19.146 20.115 22 16.379 22 11.974 22 6.465 17.535 2 12.026 2z"></path> </svg> </a> <a href="https://www.linkedin.com/in/huynhcongbang" target="_blank" class="mx-3" aria-label="Linkedin" title="Linkedin"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: currentColor;transform: ;msFilter:;"><circle cx="4.983" cy="5.009" r="2.188"></circle><path d="M9.237 8.855v12.139h3.769v-6.003c0-1.584.298-3.118 2.262-3.118 1.937 0 1.961 1.811 1.961 3.218v5.904H21v-6.657c0-3.27-.704-5.783-4.526-5.783-1.835 0-3.065 1.007-3.568 1.96h-.051v-1.66H9.237zm-6.142 0H6.87v12.139H3.095z"></path> </svg> </a> <a href="/rss.xml" target="_blank" class="mx-3" aria-label="RSS Feed" title="RSS Feed"> <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" style="fill: currentColor;transform: ;msFilter:;"><path d="M19 20.001C19 11.729 12.271 5 4 5v2c7.168 0 13 5.832 13 13.001h2z"></path><path d="M12 20.001h2C14 14.486 9.514 10 4 10v2c4.411 0 8 3.589 8 8.001z"></path><circle cx="6" cy="18" r="2"></circle> </svg> </a> </div> </aside> </div> </div> </body></html>
