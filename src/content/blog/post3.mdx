@@ -6,6 +6,7 @@ heroImage: "/post_fastapi_img.webp"
 badge: "python"
 tags: ["framework"]
 ---
+import CollapsibleSection from '../../components/CollapsibleSection.astro';
 import {Image} from 'astro:assets';
 import myImage from '../../assets/images/post3-1.webp';
 import myImage1 from '../../assets/images/post3-2.webp';
@@ -15,6 +16,7 @@ import myImage4 from '../../assets/images/post3-5.webp';
 
 [Nguồn: https://fastapi.tiangolo.com/tutorial/, Lần cuối truy cập: 2/8/2026]
 
+<CollapsibleSection title="Tìm hiểu chung">
 Một FastAPI đơn giản nhất có thể trông giống như:
 ```python
 from fastapi import FastAPI
@@ -229,7 +231,8 @@ FastAPI là mã nguồn mở và dựa trên các tiêu chuẩn. Bạn có thể
 - Định nghĩa một **path operation function**, ví dụ `def root(): ...`
 - Chạy server cho nhà phát triển với câu lệnh `fastapi dev`
 - Ngoài ra có thể deploy ứng dụng của bạn với `fastapi deploy`
-## I. Tham số đường dẫn
+</CollapsibleSection>
+<CollapsibleSection title="I. Tham số đường dẫn">
 Bạn có thể khai báo đường dẫn "tham số" hoặc "các biến" với cùng một cú pháp sử dụng Python format strings:
 ```python
 from fastapi import FastAPI
@@ -300,4 +303,105 @@ Và bởi vì schema được tạo ra từ tiêu chuẩn OpenAPI nên có rất
 </figure>
 Tương tự như vậy, có khá nhiều công cụ tương thích, bao gồm cả các công cụ tạo code cho nhiều ngôn ngữ khác nhau.
 ### Pydantic
-Tất cả công việc kiểm tra tính hợp lệ dữ liệu đều được thực hiện ngầm bởi **Pydantic**, nên bạn có thể lấy được tất cả lợi ích tự nó. 
+Tất cả công việc kiểm tra tính hợp lệ dữ liệu đều được thực hiện ngầm bởi **Pydantic**, nên bạn có thể lấy được tất cả lợi ích tự nó. Bạn có thể sử dụng cùng cách khai báo với `str`, `float`, `bool` và nhiều kiểu dữ liệu phức tạp khác.
+### Thứ tự ưu tiên
+Khi tạo các thao tác đường dẫn, bạn có thể sẽ gặp trường hợp là bạn có một đường dẫn cố định. Giống như `/users/me`, mà dùng để lấy dữ liệu về người dùng hiện tại. Và bạn cũng có một đường dẫn `/users/{user_id}` để lấy dữ liệu về một người dùng nào đó. Bởi vì thao tác đường dẫn có cấp độ ưu tiên, bạn nên đảm bảo rằng đường dẫn `/users/me` được khai báo trước `/users/{user_id}`, vì nếu khai báo ngược, chỉ có `/users/{user_id}` được sử dụng, còn thao tác đường dẫn `/users/me` sẽ không được thực thi.
+```python
+from fastapi import FastAPI
+
+app = FastAPI()
+
+@app.get("/users/{user_id}")
+async def read_user(user_id: str):
+    return {"user_id": user_id}
+    
+@app.get("/users/me")
+async def read_user_me():
+    return {"user_id": "the current user"}
+```
+Khi truy cập vào đường dẫn **http://0.0.0.0:8000/users/me** thì kết quả trả về sẽ là `{"user_id":"me"}`, nghĩa là đường dẫn thực thi của `/users/me` sẽ không được thực thi vì đã được thực thi ở `/users/{user_id}`, để có thể giải quyết vấn đề này thì chúng ta chỉnh sửa lại độ ưu tiên:
+```python
+from fastapi import FastAPI
+
+app = FastAPI()
+
+    
+@app.get("/users/me")
+async def read_user_me():
+    return {"user_id": "the current user"}
+
+@app.get("/users/{user_id}")
+async def read_user(user_id: str):
+    return {"user_id": user_id}
+```
+Lúc này khi truy cập vào đường dẫn **http://0.0.0.0:8000/users/me** thì kết quả trả về sẽ là `{"user_id":"the current user"}` như mong đợi.
+
+Tương tự, bạn cũng không thể tái định nghĩa lại một đường dẫn thực thi, vì đường dẫn thực thi đầu tiên sẽ luôn được thực hiện.
+### Các giá trị được định nghĩa trước
+Nếu bạn có một đường dẫn thực thi mà có tham số đường dẫn, nhưng bạn muốn giá trị hợp lệ được xác định trước, bạn có thể sử dụng kiểu liệt kê `enum` của Python.
+#### Tạo một class `Enum`
+Import `Enum` và tạo một class phụ mà kế thừa từ `str` và `Enum`. Thông qua việc kế thừa `str`, các tài liệu API sẽ có khả năng biết rằng giá trị phải là kiểu `string` và sẽ được kết xuất chính xác. Sau đó tạo ra các thuộc tính class với giá trị cố định, đó sẽ là các giá trị hợp lệ:
+```python
+from enum import Enum
+
+from fastapi import FastAPI
+
+
+class ModelName(str, Enum):
+    alexnet = "alexnet"
+    resnet = "resnet"
+    lenet = "lenet"
+
+app = FastAPI()
+
+
+@app.get("/models/{model_name}")
+async def get_model(model_name: ModelName):
+    if model_name is ModelName.alexnet:
+        return {"model_name": model_name, "message": "Deep Learning FTW!"}
+    if model_name.value == "lenet":
+        return {"model_name": model_name, "message": "LeCNN all the images"}
+    return {"model_name": model_name, "message": "Have some residuals"}
+```
+### Tham số đường dẫn chứa đường dẫn
+Giả sử bạn có một thao tác đường dẫn với đường dẫn là `/files/{file_path}`. 
+
+Nhưng bạn cần `file_path` bản thân nó chứa một đường dẫn giống như `home/bang/myfile.txt`. 
+
+Vì thế, URL cho nó sẽ có dạng như: `/files/home/bang/myfile.txt`.
+#### Hỗ trợ của OpenAPI
+OpenAPI không hỗ trợ một cách để khai báo một đường dẫn tham số mà chứa đường dẫn trong nó, vì nó có thể dẫn tới một số trường hợp khó để kiểm thử và định nghĩa.
+
+Tuy nhiên, bạn vẫn có thể thực hiện ở **FastAPI**, sử dụng một trong những công cụ nội bộ từ Starlette.
+
+Và các tài liệu (docs) vẫn hoạt động, mặc dù không thêm bất kỳ tài liệu nào nói rằng tham số nên chứa một đường dẫn.
+#### Chuyển đổi đường dẫn
+Sử dụng một lựa chọn trực tiếp từ Starlette thì bạn có thể khai báo một tham số đường dẫn chứa một đường dẫn sử dụng URL giống như:
+```json
+/files/{file_path:path}
+```
+Trong trường hợp này, tên của tham số là `file_path`, và phần cuối `:path` nói rằng tham số nên nhận bất kỳ đường dẫn nào. Và bạn có thể sử dụng nó với:
+```python
+from fastapi import FastAPI
+
+app = FastAPI()
+
+
+@app.get("/files/{file_path:path}")
+async def read_file(file_path: str):
+    return {"file_path": file_path}
+```
+Và bạn cũng có thể muốn sử dụng một đường dẫn với dấu `/` đứng đầu, thì bạn có thể ghi đường dẫn như sau: **http://0.0.0.0:8000/files//home/bang/file.txt** và kết quả trả về sẽ như sau: `{"file_path":"/home/bang/file.txt"}`
+### Tóm tắt lại
+Với **FastAPI**, bằng việc khai báo kiểu dữ liệu trực quan, ngắn gọn và chuẩn thì bạn sẽ nhận được:
+- Hỗ trợ từ trình soạn thảo: kiểm tra lỗi, tự động điền, ...
+- "Chuyển đổi" kiểu dữ liệu
+- Kiểm tra tính hợp lệ của dữ liệu
+- Chú thích API và tài liệu tự động.
+
+Và bạn chỉ cần khai báo chúng 1 lần duy nhất. Đó có thể là lợi thế thấy rõ của **FastAPI** khi so sánh với các framework khác (ngoại trừ hiệu năng vượt trội).
+</CollapsibleSection>
+
+<CollapsibleSection title="II. Tham số truy vấn">
+Khi bạn khai báo các tham số hàm khác mà không phải một phần của tham số đường dẫn, chúng sẽ tự động thông dịch như là tham số "truy vấn".
+</CollapsibleSection>
